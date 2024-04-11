@@ -1,3 +1,3 @@
-# jupiter
-aaaaa
-uaouu
+# DiaDia
+Lo Studio di Caso a Supporto del
+Corso di Programmazione Orientata agli Oggetti.
