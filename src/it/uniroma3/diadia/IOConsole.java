@@ -2,12 +2,12 @@ package it.uniroma3.diadia;
 
 import java.util.Scanner;
 
-public class IOConsole {
-	public static void mostraMessaggio(String msg) {
+public class IOConsole implements IO {
+	public void mostraMessaggio(String msg) {
 		System.out.println(msg);
 	}
 
-	public static void mostraMessaggioNoLn(String msg) {
+	public void mostraMessaggioNoLn(String msg) {
 		System.out.print(msg);
 	}
 

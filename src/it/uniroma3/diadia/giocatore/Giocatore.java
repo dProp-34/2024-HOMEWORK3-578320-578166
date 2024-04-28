@@ -31,4 +31,8 @@ public class Giocatore {
 		if (this.cfu >= 0)
 			this.cfu--;
 	}
+
+	public boolean isVivo() {
+		return (this.cfu > 0);
+	}
 }
