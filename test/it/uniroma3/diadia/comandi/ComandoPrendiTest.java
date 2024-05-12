@@ -34,7 +34,7 @@ public class ComandoPrendiTest {
 	}
 
 	@Test
-	void testQuellAttrezzoNonEPresenteNellaStanza() {
+	void testQuellAttrezzoNonPresenteNellaStanza() {
 		primo.setParametro("Etere");
 		primo.esegui(martedi);
 		assertEquals(null, martedi.getGiocatore().getBorsa().getAttrezzo("Chiavi"));
@@ -42,9 +42,9 @@ public class ComandoPrendiTest {
 
 	@Test
 	void testNonPuoiPrendereQuellAttrezzo() {
-		Attrezzo etere = new Attrezzo("Etere", 0);
+		Attrezzo uno = new Attrezzo("Uno", 1);
 		for (int i = 0; i < 15; i++)
-			martedi.getGiocatore().getBorsa().addAttrezzo(etere);
+			martedi.getGiocatore().getBorsa().addAttrezzo(uno);
 		primo.setParametro("Chiavi");
 		primo.esegui(martedi);
 		assertEquals(null, martedi.getGiocatore().getBorsa().getAttrezzo("Chiavi"));

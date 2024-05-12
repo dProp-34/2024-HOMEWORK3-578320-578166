@@ -42,11 +42,15 @@ public class ComandoPosaTest {
 
 	@Test
 	void testNonPuoiPosareQuellAttrezzo() {
-		Attrezzo etere = new Attrezzo("Etere", 0);
-		for (int i = 0; i < 15; i++)
-			lunedi.getLabirinto().getStanzaCorrente().addAttrezzo(etere);
-		primo.setParametro("Chiavi");
-		primo.esegui(lunedi);
-		assertEquals(null, lunedi.getLabirinto().getStanzaCorrente().getAttrezzo("Chiavi"));
+		/*
+		 * Attrezzo etere = new Attrezzo("Etere", 0);
+		 * for (int i = 0; i < 15; i++)
+		 * lunedi.getLabirinto().getStanzaCorrente().addAttrezzo(etere);
+		 * primo.setParametro("Chiavi");
+		 * primo.esegui(lunedi);
+		 * assertEquals(null,
+		 * lunedi.getLabirinto().getStanzaCorrente().getAttrezzo("Chiavi"));
+		 */
+		assertTrue(true); // La Stanza è stata modificata in modo da poter contenere infiniti Attrezzi
 	}
 }
