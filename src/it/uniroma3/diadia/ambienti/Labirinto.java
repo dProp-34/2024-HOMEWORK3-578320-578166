@@ -7,7 +7,8 @@ public class Labirinto {
 	private Stanza stanzaVincente;
 
 	public Labirinto() {
-		this.creaStanze();
+		this.stanzaCorrente = new Stanza();
+		this.stanzaVincente = new Stanza();
 	}
 
 	public Stanza getStanzaCorrente() {
@@ -27,9 +28,10 @@ public class Labirinto {
 	}
 
 	/**
-	 * Crea tutte le stanze e le porte di collegamento
+	 * Crea le stanze e le porte di collegamento di un
+	 * esempio di Labirinto, senza l'utilizzo di LabirintoBuilder
 	 */
-	public void creaStanze() {
+	public void demo() {
 		/* crea gli attrezzi */
 		Attrezzo lanterna = new Attrezzo("lanterna", 3);
 		Attrezzo osso = new Attrezzo("osso", 1);

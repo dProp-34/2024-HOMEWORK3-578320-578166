@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
+
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 
 /**
@@ -19,6 +19,7 @@ import it.uniroma3.diadia.attrezzi.Attrezzo;
  * @version base
  */
 public class Stanza {
+	private static final int NUMERO_MASSIMO_DIREZIONI = 4;
 	private String nome;
 	private List<Attrezzo> attrezzi;
 	private Map<String, Stanza> stanzeAdiacenti;
@@ -32,6 +33,10 @@ public class Stanza {
 		this.nome = nome;
 		this.attrezzi = new ArrayList<>();
 		this.stanzeAdiacenti = new HashMap<String, Stanza>();
+	}
+
+	public Stanza() {
+		this(new String());
 	}
 
 	/**
@@ -82,23 +87,12 @@ public class Stanza {
 	 *                  primo parametro.
 	 */
 	public void setStanzaAdiacente(String direzione, Stanza stanza) {
-		/*
-		 * if (direzione != null && stanza != null) {
-		 * boolean aggiornato = false;
-		 * for (int i = 0; i < this.direzioni.length; i++)
-		 * if (direzione.equals(this.direzioni[i])) {
-		 * this.stanzeAdiacenti[i] = stanza;
-		 * aggiornato = true;
-		 * }
-		 * if (!aggiornato)
-		 * if (this.numeroStanzeAdiacenti < NUMERO_MASSIMO_DIREZIONI) {
-		 * this.direzioni[numeroStanzeAdiacenti] = direzione;
-		 * this.stanzeAdiacenti[numeroStanzeAdiacenti] = stanza;
-		 * this.numeroStanzeAdiacenti++;
-		 * }
-		 * }
-		 */
-		this.stanzeAdiacenti.put(direzione, stanza);
+		if (this.numeroStanzeAdiacenti() < NUMERO_MASSIMO_DIREZIONI)
+			this.stanzeAdiacenti.put(direzione, stanza);
+	}
+
+	private int numeroStanzeAdiacenti() {
+		return this.stanzeAdiacenti.size();
 	}
 
 	/**
@@ -108,13 +102,24 @@ public class Stanza {
 	 * @return la lista di direzioni che si
 	 *         possono prendere a partire da questa stanza.
 	 */
-	public Set<String> getDirezioni() {
+	public List<String> getDirezioni() {
 		/*
 		 * String[] direzioni = new String[this.numeroStanzeAdiacenti];
 		 * for (int i = 0; i < this.numeroStanzeAdiacenti; i++)
 		 * direzioni[i] = this.direzioni[i];
+		 * 
+		 * assertEquals(Collections.singletonList("nord"),
+		 * bilocale.getStanzaCorrente().getDirezioni());
 		 */
-		return this.stanzeAdiacenti.keySet();
+		return new ArrayList<>(this.stanzeAdiacenti.keySet());
+	}
+
+	public Map<String, Stanza> getStanzeAdiacenti() {
+		return stanzeAdiacenti;
+	}
+
+	public void setStanzeAdiacenti(Map<String, Stanza> stanzeAdiacenti) {
+		this.stanzeAdiacenti = stanzeAdiacenti;
 	}
 
 	/**
@@ -159,7 +164,7 @@ public class Stanza {
 	 * @return true se si riesce ad aggiungere l'attrezzo, false atrimenti.
 	 */
 	public boolean addAttrezzo(Attrezzo myAttrezzo) {
-		if (myAttrezzo == null)
+		if (myAttrezzo == null || this.hasAttrezzo(myAttrezzo.getNome()))
 			return false;
 		else
 			return this.attrezzi.add(myAttrezzo);
@@ -193,17 +198,34 @@ public class Stanza {
 		StringBuilder risultato = new StringBuilder();
 		risultato.append("- " + this.getNome() + " -");
 		risultato.append("\nUscite: ");
-		/* for (String direzione : this.stanzeAdiacenti.keySet()) {
-			if (direzione != null)
-				risultato.append(" " + direzione);
-		}
-		risultato.append("\nAttrezzi:");
-		for (Attrezzo attrezzo : this.attrezzi) {
-			if (attrezzo != null)
-				risultato.append(" " + attrezzo.toString());
-		} */
-		risultato.append(this.stanzeAdiacenti.keySet() +
-			"\nAttrezzi: " + this.attrezzi);
+		/*
+		 * for (String direzione : this.getDirezioni()) {
+		 * if (direzione != null)
+		 * risultato.append(" " + direzione);
+		 * }
+		 * risultato.append("\nAttrezzi:");
+		 * for (Attrezzo attrezzo : this.attrezzi) {
+		 * if (attrezzo != null)
+		 * risultato.append(" " + attrezzo.toString());
+		 * }
+		 */
+		risultato.append(this.getDirezioni() +
+				"\nAttrezzi: " + this.attrezzi);
 		return risultato.toString();
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (o == null || o.getClass() != this.getClass())
+			return false;
+		else {
+			Stanza that = (Stanza) o;
+			return (this.getNome().equals(that.getNome()));
+		}
+	}
+
+	@Override
+	public int hashCode() {
+		return this.getClass().hashCode() + this.getNome().hashCode();
 	}
 }
