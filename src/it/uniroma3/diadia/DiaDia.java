@@ -3,6 +3,7 @@ package it.uniroma3.diadia;
 import java.util.Scanner;
 
 import it.uniroma3.diadia.ambienti.Labirinto;
+import it.uniroma3.diadia.ambienti.LabirintoBuilder;
 import it.uniroma3.diadia.comandi.Comando;
 import it.uniroma3.diadia.comandi.FabbricaDiComandi;
 import it.uniroma3.diadia.comandi.FabbricaDiComandiFisarmonica;
@@ -17,7 +18,6 @@ import it.uniroma3.diadia.comandi.FabbricaDiComandiFisarmonica;
  *
  * @version base
  */
-@SuppressWarnings("unused")
 public class DiaDia {
 	static final private String MESSAGGIO_BENVENUTO = "\n" +
 			"Ti trovi nell'Universita', ma oggi e' diversa dal solito...\n" +
@@ -76,7 +76,7 @@ public class DiaDia {
 
 			if (this.partita.isVinta()) {
 				io.mostraMessaggio("Hai raggiunto la " +
-						this.partita.getLabirinto().getStanzaCorrente().getNome() + ". Hai vinto!");
+						this.partita.getLabirinto().getStanzaVincente().getNome() + ". Hai vinto!");
 				return true;
 			} else if (!this.partita.getGiocatore().isVivo()) {
 				io.mostraMessaggio("Hai esaurito i CFU. Hai perso...");
@@ -92,12 +92,11 @@ public class DiaDia {
 		 * di cui sia ammessa la creazione
 		 */
 		IO io = new IOConsole();
-		Labirinto labirinto = new Labirinto/* Builder()
+		Labirinto labirinto = new LabirintoBuilder()
 				.addStanzaIniziale("LabCampusOne")
 				.addStanzaVincente("Biblioteca")
 				.addAdiacenza("LabCampusOne", "Biblioteca", "ovest")
-				.getLabirinto */();
-
+				.getLabirinto();
 		DiaDia gioco = new DiaDia(labirinto, io);
 		gioco.gioca();
 	}
