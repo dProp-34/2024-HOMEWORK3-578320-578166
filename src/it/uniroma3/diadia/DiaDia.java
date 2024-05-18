@@ -76,7 +76,7 @@ public class DiaDia {
 
 			if (this.partita.isVinta()) {
 				io.mostraMessaggio("Hai raggiunto la " +
-						this.partita.getLabirinto().getStanzaVincente().getNome() + ". Hai vinto!");
+						this.partita.getLabirinto().getStanzaCorrente().getNome() + ". Hai vinto!");
 				return true;
 			} else if (!this.partita.getGiocatore().isVivo()) {
 				io.mostraMessaggio("Hai esaurito i CFU. Hai perso...");

@@ -2,11 +2,11 @@ package it.uniroma3.diadia.comandi;
 
 import java.util.Scanner;
 
-@SuppressWarnings("resource")
 public class FabbricaDiComandiFisarmonica implements FabbricaDiComandi {
 	private String nomeComando;
 	private String parametro;
 
+	@SuppressWarnings("resource")
 	public Comando costruisciComando(String istruzione) {
 		Comando comando = null;
 		if (istruzione != null) {
