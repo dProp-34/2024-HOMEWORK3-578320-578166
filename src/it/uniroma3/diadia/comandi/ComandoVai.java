@@ -20,7 +20,7 @@ public class ComandoVai implements Comando {
 			Stanza stanzaCorrente = partita.getLabirinto().getStanzaCorrente();
 			Stanza prossimaStanza = stanzaCorrente.getStanzaAdiacente(direzione);
 			if (prossimaStanza == null)
-				//return ("Non puoi andare li'.\n");
+				// return ("Non puoi andare li'.\n");
 				return "*Bonk*\n";
 			else {
 				partita.getLabirinto().setStanzaCorrente(prossimaStanza);
