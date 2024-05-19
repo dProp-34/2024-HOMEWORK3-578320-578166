@@ -10,6 +10,10 @@ public class Labirinto {
 		this.stanzaCorrente = new Stanza();
 		this.stanzaVincente = new Stanza();
 	}
+	
+	public static LabirintoBuilder newLabirintoBuilder() {
+		return new LabirintoBuilder();
+	}
 
 	public Stanza getStanzaCorrente() {
 		return this.stanzaCorrente;

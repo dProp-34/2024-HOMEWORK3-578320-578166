@@ -48,6 +48,10 @@ public class Partita {
 	public void setFinita() {
 		this.finita = true;
 	}
+	
+	public boolean isGiocatoreVivo() {
+		return this.giocatore.getCfu() > 0;
+	}
 
 	/**
 	 * Restituisce vero se la partita e' stata vinta, ovvero
