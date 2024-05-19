@@ -86,10 +86,9 @@ public class Simulatore {
 		return io;
 	}
 
-	public static Attrezzo creaAttrezzoEAggiugniAStanza(Stanza stanzaDaRiempire, String nomeAttrezzo, int peso) {
+	public static Attrezzo creaAttrezzoEAggiungiAStanza(Stanza stanzaDaRiempire, String nomeAttrezzo, int peso) {
 		Attrezzo attrezzo = new Attrezzo(nomeAttrezzo, peso);
 		stanzaDaRiempire.addAttrezzo(attrezzo);
 		return attrezzo;
 	}
-
 }
