@@ -2,9 +2,19 @@ package it.uniroma3.diadia.comandi;
 
 import java.util.Scanner;
 
+import it.uniroma3.diadia.IO;
+
 public class FabbricaDiComandiFisarmonica implements FabbricaDiComandi {
 	private String nomeComando;
 	private String parametro;
+	
+	private IO io;
+	
+	public FabbricaDiComandiFisarmonica() {}
+	
+	public FabbricaDiComandiFisarmonica(IO io) {
+		this.io = io;
+	}
 
 	@SuppressWarnings("resource")
 	public Comando costruisciComando(String istruzione) {
@@ -43,6 +53,7 @@ public class FabbricaDiComandiFisarmonica implements FabbricaDiComandi {
 						break;
 				}
 			comando.setParametro(this.parametro);
+			comando.setIo(this.io);
 		}
 		return comando;
 	}
