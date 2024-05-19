@@ -41,8 +41,6 @@ public class PartitaTestSim {
 
 	@Test
 	public void testIsFinita() {
-		
 		assertFalse(p.isFinita());
 	}
-	
 }
