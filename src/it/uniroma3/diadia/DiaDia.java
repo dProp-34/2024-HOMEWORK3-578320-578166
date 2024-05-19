@@ -1,7 +1,6 @@
 package it.uniroma3.diadia;
 
 //import java.util.Scanner;
-
 import it.uniroma3.diadia.ambienti.Labirinto;
 import it.uniroma3.diadia.ambienti.LabirintoBuilder;
 import it.uniroma3.diadia.comandi.Comando;
@@ -59,17 +58,14 @@ public class DiaDia {
 		} while (!processaIstruzione(istruzione, factory));
 	}
 	*/
-	
+
 	public void gioca() {
-		String istruzione; 
+		String istruzione;
 		io.mostraMessaggio(MESSAGGIO_BENVENUTO);
 		do {
 			istruzione = io.leggiRiga();
-
-		}while (!processaIstruzione(istruzione) );
-
+		} while (!processaIstruzione(istruzione));
 	}
-	
 
 	/**
 	 * Processa un'istruzione.
