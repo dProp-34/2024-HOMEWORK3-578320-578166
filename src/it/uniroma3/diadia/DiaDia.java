@@ -103,7 +103,7 @@ public class DiaDia {
 		comandoDaEseguire.esegui(this.partita);
 		if (this.partita.isVinta())
 			io.mostraMessaggio("Hai vinto!");
-		if (!this.partita.isGiocatoreVivo())
+    if (!this.partita.getGiocatore().isVivo())
 			io.mostraMessaggio("Hai esaurito i CFU...");
 		return this.partita.isFinita();
 	}
