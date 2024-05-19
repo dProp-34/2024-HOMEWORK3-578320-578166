@@ -48,7 +48,6 @@ public class Partita {
 	public void setFinita() {
 		this.finita = true;
 	}
-	
 
 	/**
 	 * Restituisce vero se la partita e' stata vinta, ovvero
