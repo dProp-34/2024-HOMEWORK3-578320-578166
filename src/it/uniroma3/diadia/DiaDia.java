@@ -1,8 +1,6 @@
 package it.uniroma3.diadia;
 
 import java.util.Scanner;
-
-//import java.util.Scanner;
 import it.uniroma3.diadia.ambienti.Labirinto;
 import it.uniroma3.diadia.ambienti.LabirintoBuilder;
 import it.uniroma3.diadia.comandi.Comando;
