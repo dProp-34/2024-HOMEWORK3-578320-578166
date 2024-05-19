@@ -1,10 +1,12 @@
 package it.uniroma3.diadia;
 
+import java.util.Scanner;
+
 //import java.util.Scanner;
 import it.uniroma3.diadia.ambienti.Labirinto;
 import it.uniroma3.diadia.ambienti.LabirintoBuilder;
 import it.uniroma3.diadia.comandi.Comando;
-//import it.uniroma3.diadia.comandi.FabbricaDiComandi;
+import it.uniroma3.diadia.comandi.FabbricaDiComandi;
 import it.uniroma3.diadia.comandi.FabbricaDiComandiFisarmonica;
 
 /**
@@ -50,10 +52,6 @@ public class DiaDia {
 		FabbricaDiComandi factory = new FabbricaDiComandiFisarmonica();
 
 		do {
-			io.mostraMessaggioNoLn("\nComandi:");
-			for (String comando : DiaDia.ELENCO_COMANDI)
-				io.mostraMessaggioNoLn(" " + comando);
-			io.mostraMessaggio("");
 			istruzione = scannerDiLinee.nextLine();
 		} while (!processaIstruzione(istruzione, factory));
 	}
@@ -100,11 +98,14 @@ public class DiaDia {
 		Comando comandoDaEseguire;
 		FabbricaDiComandiFisarmonica factory = new FabbricaDiComandiFisarmonica(this.io);
 		comandoDaEseguire = factory.costruisciComando(istruzione);
-		comandoDaEseguire.esegui(this.partita);
+		String m = comandoDaEseguire.esegui(this.partita);
+		if (m != null)
+			io.mostraMessaggio(m);
 		if (this.partita.isVinta())
-			io.mostraMessaggio("Hai vinto!");
+			io.mostraMessaggio("Hai raggiunto " +
+					this.partita.getLabirinto().getStanzaCorrente().getNome() + ". Hai vinto!\n");
 		if (!this.partita.getGiocatore().isVivo())
-			io.mostraMessaggio("Hai esaurito i CFU...");
+			io.mostraMessaggio("Hai esaurito i CFU...\nGAME OVER");
 		return this.partita.isFinita();
 	}
 
@@ -119,6 +120,10 @@ public class DiaDia {
 				.addAttrezzo("osso", 1)
 				.addStanzaVincente("Biblioteca")
 				.addAdiacenza("LabCampusOne", "Biblioteca", "ovest")
+				.addStanza("Aula N11")
+				.addAttrezzo("lanterna", 2)
+				.addAdiacenza("LabCampusOne", "Aula N11", "est")
+				.addAdiacenza("Aula N11", "LabCampusOne", "ovest")
 				.getLabirinto();
 		DiaDia gioco = new DiaDia(labirinto, io);
 		gioco.gioca();
