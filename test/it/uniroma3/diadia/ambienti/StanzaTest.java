@@ -1,9 +1,15 @@
 package it.uniroma3.diadia.ambienti;
 
-import it.uniroma3.diadia.attrezzi.Attrezzo;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import it.uniroma3.diadia.attrezzi.Attrezzo;
+import it.uniroma3.diadia.comandi.Direzione;
 
 public class StanzaTest {
 	private Stanza bar;
@@ -22,14 +28,14 @@ public class StanzaTest {
 
 		this.bar.addAttrezzo(this.tazzina);
 		this.mensa.addAttrezzo(this.piatto);
-		this.bar.setStanzaAdiacente("nord", this.mensa);
-		this.mensa.setStanzaAdiacente("sud", this.bar);
+		this.bar.setStanzaAdiacente(Direzione.nord, this.mensa);
+		this.mensa.setStanzaAdiacente(Direzione.sud, this.bar);
 	}
 
 	@Test
 	void testSetStanzaAdiacente() {
-		assertEquals("Piatto", this.bar.getStanzaAdiacente("nord").getAttrezzo("Piatto").getNome());
-		assertEquals("Tazzina", this.mensa.getStanzaAdiacente("sud").getAttrezzo("Tazzina").getNome());
+		assertEquals("Piatto", this.bar.getStanzaAdiacente(Direzione.nord).getAttrezzo("Piatto").getNome());
+		assertEquals("Tazzina", this.mensa.getStanzaAdiacente(Direzione.sud).getAttrezzo("Tazzina").getNome());
 	}
 
 	@Test

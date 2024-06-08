@@ -59,7 +59,7 @@ public class ComandoVaiTest {
 		Labirinto labirinto = new LabirintoBuilder()
 				.addStanzaIniziale("LabCampusOne")
 				.addStanzaVincente("Biblioteca")
-				.addAdiacenza("LabCampusOne", "Biblioteca", "ovest")
+				.addAdiacenza("LabCampusOne", "Biblioteca", Direzione.ovest)
 				.getLabirinto();
 		mercoledi.setLabirinto(labirinto);
 
@@ -74,12 +74,12 @@ public class ComandoVaiTest {
 		Labirinto labirinto = new LabirintoBuilder()
 				.addStanzaIniziale("LabCampusOne")
 				.addStanza("Biblioteca")
-				.addAdiacenza("LabCampusOne", "Biblioteca", "ovest")
+				.addAdiacenza("LabCampusOne", "Biblioteca", Direzione.ovest)
 				.addStanza("Aula N11")
 				.addStanzaVincente("Aula N10")
-				.addAdiacenza("LabCampusOne", "Aula N11", "sud")
-				.addAdiacenza("Aula N11", "LabCampusOne", "nord")
-				.addAdiacenza("Biblioteca", "Aula N10", "sud")
+				.addAdiacenza("LabCampusOne", "Aula N11", Direzione.sud)
+				.addAdiacenza("Aula N11", "LabCampusOne", Direzione.nord)
+				.addAdiacenza("Biblioteca", "Aula N10", Direzione.sud)
 				.getLabirinto();
 		mercoledi.setLabirinto(labirinto);
 
