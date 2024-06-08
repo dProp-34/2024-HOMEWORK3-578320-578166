@@ -16,17 +16,17 @@ public class FabbricaDiComandiFisarmonicaTest {
 	}
 
 	@Test
-	void testCostruisciComandoSenzaNome() {
+	public void testCostruisciComandoSenzaNome() {
 		assertNull(roma.costruisciComando(null));
 	}
 
 	@Test
-	void testCostruisciComandoNonDefinito() {
+	public void testCostruisciComandoNonDefinito() {
 		assertThat(roma.costruisciComando("vinci"), instanceOf(ComandoNonValido.class));
 	}
 
 	@Test
-	void testCostruisciComandoVai() {
+	public void testCostruisciComandoVai() {
 		assertThat(roma.costruisciComando("vai"), instanceOf(ComandoVai.class));
 	}
 }

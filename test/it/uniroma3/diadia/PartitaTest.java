@@ -18,12 +18,12 @@ public class PartitaTest {
 	}
 
 	@Test
-	void testIsNotVinta() {
+	public void testIsNotVinta() {
 		assertFalse(lunedi.isVinta());
 	}
 
 	@Test
-	void testIsFinitaPercheFinita() {
+	public void testIsFinitaPercheFinita() {
 		assertTrue(mercoledi.isFinita());
 	}
 }

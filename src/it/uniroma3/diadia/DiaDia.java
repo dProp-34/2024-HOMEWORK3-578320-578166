@@ -1,7 +1,9 @@
 package it.uniroma3.diadia;
 
+import java.io.FileNotFoundException;
+
+import it.uniroma3.diadia.ambienti.FormatoFileNonValidoException;
 import it.uniroma3.diadia.ambienti.Labirinto;
-import it.uniroma3.diadia.ambienti.LabirintoBuilder;
 import it.uniroma3.diadia.comandi.Comando;
 import it.uniroma3.diadia.comandi.FabbricaDiComandiFisarmonica;
 
@@ -28,6 +30,17 @@ public class DiaDia {
 	private Partita partita;
 	private IO io;
 
+	public DiaDia(String nomeFile, IO io) {
+		this.io = io;
+		try {
+			this.partita = new Partita(new Labirinto(nomeFile));
+		} catch (FileNotFoundException e) {
+			throw new RuntimeException("Eccezione: File non trovato!");
+		} catch (FormatoFileNonValidoException e) {
+			throw new RuntimeException("Eccezione: Formato file non valido!");
+		}
+	}
+
 	public DiaDia(Labirinto labirinto, IO io) {
 		this.partita = new Partita(labirinto);
 		this.io = io;
@@ -35,21 +48,22 @@ public class DiaDia {
 
 	public DiaDia(IO io) {
 		this(new Labirinto(), io);
+		this.partita.getLabirinto().demo();
 	}
 
 	/*
-	@SuppressWarnings("resource")
-	public void gioca() {
-		String istruzione;
-		Scanner scannerDiLinee;
-		io.mostraMessaggio(DiaDia.MESSAGGIO_BENVENUTO);
-		scannerDiLinee = new Scanner(System.in);
-		FabbricaDiComandi factory = new FabbricaDiComandiFisarmonica();
-		do {
-			istruzione = scannerDiLinee.nextLine();
-		} while (!processaIstruzione(istruzione, factory));
-	}
-	*/
+	 * @SuppressWarnings("resource")
+	 * public void gioca() {
+	 * String istruzione;
+	 * Scanner scannerDiLinee;
+	 * io.mostraMessaggio(DiaDia.MESSAGGIO_BENVENUTO);
+	 * scannerDiLinee = new Scanner(System.in);
+	 * FabbricaDiComandi factory = new FabbricaDiComandiFisarmonica();
+	 * do {
+	 * istruzione = scannerDiLinee.nextLine();
+	 * } while (!processaIstruzione(istruzione, factory));
+	 * }
+	 */
 
 	public void gioca() {
 		String istruzione;
@@ -67,26 +81,27 @@ public class DiaDia {
 	 */
 
 	/*
-	private boolean processaIstruzione(String istruzione, FabbricaDiComandi factory) {
-		if (istruzione.isEmpty())
-			return false;
-		else {
-			Comando comandoDaEseguire = factory.costruisciComando(istruzione);
-			String daMostrare = comandoDaEseguire.esegui(this.partita);
-			if (daMostrare != null)
-				io.mostraMessaggioNoLn(daMostrare);
-			if (this.partita.isVinta()) {
-				io.mostraMessaggio("Hai raggiunto la " +
-						this.partita.getLabirinto().getStanzaCorrente().getNome() + ". Hai vinto!");
-				return true;
-			} else if (!this.partita.getGiocatore().isVivo()) {
-				io.mostraMessaggio("Hai esaurito i CFU. Hai perso...");
-				return true;
-			} else
-				return this.partita.isFinita();
-		}
-	}
-	*/
+	 * private boolean processaIstruzione(String istruzione, FabbricaDiComandi
+	 * factory) {
+	 * if (istruzione.isEmpty())
+	 * return false;
+	 * else {
+	 * Comando comandoDaEseguire = factory.costruisciComando(istruzione);
+	 * String daMostrare = comandoDaEseguire.esegui(this.partita);
+	 * if (daMostrare != null)
+	 * io.mostraMessaggioNoLn(daMostrare);
+	 * if (this.partita.isVinta()) {
+	 * io.mostraMessaggio("Hai raggiunto la " +
+	 * this.partita.getLabirinto().getStanzaCorrente().getNome() + ". Hai vinto!");
+	 * return true;
+	 * } else if (!this.partita.getGiocatore().isVivo()) {
+	 * io.mostraMessaggio("Hai esaurito i CFU. Hai perso...");
+	 * return true;
+	 * } else
+	 * return this.partita.isFinita();
+	 * }
+	 * }
+	 */
 
 	private boolean processaIstruzione(String istruzione) {
 		Comando comandoDaEseguire;
@@ -107,19 +122,20 @@ public class DiaDia {
 		/*
 		 * N.B. unica istanza di IOConsole
 		 * di cui sia ammessa la creazione
+		 * 
+		 * Labirinto labirinto = new LabirintoBuilder()
+		 * .addStanzaIniziale("LabCampusOne")
+		 * .addAttrezzo("osso", 1)
+		 * .addStanzaVincente("Biblioteca")
+		 * .addAdiacenza("LabCampusOne", "Biblioteca", "ovest")
+		 * .addStanza("Aula N11")
+		 * .addAttrezzo("lanterna", 2)
+		 * .addAdiacenza("LabCampusOne", "Aula N11", "est")
+		 * .addAdiacenza("Aula N11", "LabCampusOne", "ovest")
+		 * .getLabirinto();
 		 */
 		IO io = new IOConsole();
-		Labirinto labirinto = new LabirintoBuilder()
-				.addStanzaIniziale("LabCampusOne")
-				.addAttrezzo("osso", 1)
-				.addStanzaVincente("Biblioteca")
-				.addAdiacenza("LabCampusOne", "Biblioteca", "ovest")
-				.addStanza("Aula N11")
-				.addAttrezzo("lanterna", 2)
-				.addAdiacenza("LabCampusOne", "Aula N11", "est")
-				.addAdiacenza("Aula N11", "LabCampusOne", "ovest")
-				.getLabirinto();
-		DiaDia gioco = new DiaDia(labirinto, io);
+		DiaDia gioco = new DiaDia("labirinto1.txt", io); // TODO leggere il labirinto da resources
 		gioco.gioca();
 	}
 }

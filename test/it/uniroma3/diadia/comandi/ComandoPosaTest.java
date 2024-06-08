@@ -21,27 +21,27 @@ public class ComandoPosaTest {
 	}
 
 	@Test
-	void testEseguiPosa() {
+	public void testEseguiPosa() {
 		primo.setParametro("Chiavi");
 		primo.esegui(lunedi);
 		assertEquals(chiavi, lunedi.getLabirinto().getStanzaCorrente().getAttrezzo("Chiavi"));
 	}
 
 	@Test
-	void testCosaVuoiPosare() {
+	public void testCosaVuoiPosare() {
 		primo.esegui(lunedi);
 		assertEquals(null, lunedi.getLabirinto().getStanzaCorrente().getAttrezzo("Chiavi"));
 	}
 
 	@Test
-	void testNonPossiediQuellAttrezzo() {
+	public void testNonPossiediQuellAttrezzo() {
 		primo.setParametro("Etere");
 		primo.esegui(lunedi);
 		assertEquals(null, lunedi.getLabirinto().getStanzaCorrente().getAttrezzo("Chiavi"));
 	}
 
 	@Test
-	void testNonPuoiPosareQuellAttrezzo() {
+	public void testNonPuoiPosareQuellAttrezzo() {
 		/*
 		 * Attrezzo etere = new Attrezzo("Etere", 0);
 		 * for (int i = 0; i < 15; i++)
