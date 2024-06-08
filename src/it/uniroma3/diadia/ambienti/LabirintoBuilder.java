@@ -4,6 +4,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 
 import it.uniroma3.diadia.attrezzi.Attrezzo;
+import it.uniroma3.diadia.comandi.Direzione;
 
 public class LabirintoBuilder {
 	private Labirinto labirinto;
@@ -58,8 +59,8 @@ public class LabirintoBuilder {
 		return this;
 	}
 
-	public LabirintoBuilder addStanzaBloccata(String string, String string2, String string3) {
-		Stanza daAggiungere = new StanzaBloccata(string, string2, string3);
+	public LabirintoBuilder addStanzaBloccata(String string, Direzione direzioneBloccata, String string2) {
+		Stanza daAggiungere = new StanzaBloccata(string, direzioneBloccata, string2);
 		this.listaStanze.add(daAggiungere);
 		// tiene traccia
 		return this;
@@ -89,7 +90,9 @@ public class LabirintoBuilder {
 		return stanza;
 	}
 
-	public LabirintoBuilder addAdiacenza(String nomeFrom, String nomeTo, String direzione) {
+	public LabirintoBuilder addAdiacenza(String nomeFrom, String nomeTo, Direzione direzione) {
+		if (direzione == null)
+			return null;
 		Stanza from = this.get(nomeFrom);
 		Stanza to = this.get(nomeTo);
 		if (from != null && to != null)

@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import it.uniroma3.diadia.ambienti.FormatoFileNonValidoException;
 import it.uniroma3.diadia.ambienti.Labirinto;
 import it.uniroma3.diadia.comandi.Comando;
+import it.uniroma3.diadia.comandi.Direzione;
 import it.uniroma3.diadia.comandi.FabbricaDiComandiFisarmonica;
 
 /**
