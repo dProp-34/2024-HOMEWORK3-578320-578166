@@ -1,5 +1,7 @@
 package it.uniroma3.diadia;
 
+import java.util.Scanner;
+
 import it.uniroma3.diadia.ambienti.Labirinto;
 import it.uniroma3.diadia.ambienti.LabirintoBuilder;
 import it.uniroma3.diadia.comandi.Comando;
@@ -52,11 +54,11 @@ public class DiaDia {
 	}
 	*/
 
-	public void gioca() {
+	public void gioca(Scanner scannerDiLinee) {
 		String istruzione;
 		io.mostraMessaggio(MESSAGGIO_BENVENUTO);
 		do {
-			istruzione = io.leggiRiga();
+			istruzione = io.leggiRiga(scannerDiLinee);
 		} while (!processaIstruzione(istruzione));
 	}
 
@@ -110,6 +112,7 @@ public class DiaDia {
 		 * di cui sia ammessa la creazione
 		 */
 		IO io = new IOConsole();
+		Scanner scannerDiLinee = new Scanner(System.in);
 		Labirinto labirinto = new LabirintoBuilder()
 				.addStanzaIniziale("LabCampusOne")
 				.addAttrezzo("osso", 1)
@@ -121,6 +124,8 @@ public class DiaDia {
 				.addAdiacenza("Aula N11", "LabCampusOne", Direzione.valueOf("ovest"))
 				.getLabirinto();
 		DiaDia gioco = new DiaDia(labirinto, io);
-		gioco.gioca();
+		gioco.gioca(scannerDiLinee);
+		if (gioco.partita.isFinita())
+			scannerDiLinee.close();
 	}
 }
