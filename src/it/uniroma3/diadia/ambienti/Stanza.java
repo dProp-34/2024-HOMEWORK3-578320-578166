@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import it.uniroma3.diadia.attrezzi.Attrezzo;
+import it.uniroma3.diadia.comandi.Direzione;
 
 /**
  * Questa classe modella una stanza nel gioco di ruolo.
@@ -22,7 +23,7 @@ public class Stanza {
 	private static final int NUMERO_MASSIMO_DIREZIONI = 4;
 	private String nome;
 	private List<Attrezzo> attrezzi;
-	private Map<String, Stanza> stanzeAdiacenti;
+	private Map<Direzione, Stanza> stanzeAdiacenti;
 
 	/**
 	 * Crea una stanza, senza attrezzi ne' stanze adiacenti.
@@ -32,7 +33,7 @@ public class Stanza {
 	public Stanza(String nome) {
 		this.nome = nome;
 		this.attrezzi = new ArrayList<>();
-		this.stanzeAdiacenti = new HashMap<String, Stanza>();
+		this.stanzeAdiacenti = new HashMap<Direzione, Stanza>();
 	}
 
 	public Stanza() {
@@ -70,7 +71,7 @@ public class Stanza {
 	 *
 	 * @param direzione - la direzione della stanza da restituire.
 	 */
-	public Stanza getStanzaAdiacente(String direzione) {
+	public Stanza getStanzaAdiacente(Direzione direzione) {
 		/*
 		 * for (int i = 0; i < this.numeroStanzeAdiacenti; i++)
 		 * if (this.direzioni[i].equals(direzione))
@@ -86,7 +87,7 @@ public class Stanza {
 	 * @param stanza    - la stanza adiacente nella direzione indicata dal
 	 *                  primo parametro.
 	 */
-	public void setStanzaAdiacente(String direzione, Stanza stanza) {
+	public void setStanzaAdiacente(Direzione direzione, Stanza stanza) {
 		if (this.numeroStanzeAdiacenti() < NUMERO_MASSIMO_DIREZIONI)
 			this.stanzeAdiacenti.put(direzione, stanza);
 	}
@@ -102,7 +103,7 @@ public class Stanza {
 	 * @return la lista di direzioni che si
 	 *         possono prendere a partire da questa stanza.
 	 */
-	public List<String> getDirezioni() {
+	public List<Direzione> getDirezioni() {
 		/*
 		 * String[] direzioni = new String[this.numeroStanzeAdiacenti];
 		 * for (int i = 0; i < this.numeroStanzeAdiacenti; i++)
@@ -114,11 +115,11 @@ public class Stanza {
 		return new ArrayList<>(this.stanzeAdiacenti.keySet());
 	}
 
-	public Map<String, Stanza> getStanzeAdiacenti() {
+	public Map<Direzione, Stanza> getStanzeAdiacenti() {
 		return stanzeAdiacenti;
 	}
 
-	public void setStanzeAdiacenti(Map<String, Stanza> stanzeAdiacenti) {
+	public void setStanzeAdiacenti(Map<Direzione, Stanza> stanzeAdiacenti) {
 		this.stanzeAdiacenti = stanzeAdiacenti;
 	}
 

@@ -1,6 +1,7 @@
 package it.uniroma3.diadia.ambienti;
 
 import it.uniroma3.diadia.attrezzi.Attrezzo;
+import it.uniroma3.diadia.comandi.Direzione;
 
 public class Labirinto {
 	private Stanza stanzaCorrente;
@@ -48,18 +49,18 @@ public class Labirinto {
 		Stanza biblioteca = new Stanza("Biblioteca");
 
 		/* collega le stanze */
-		atrio.setStanzaAdiacente("nord", biblioteca);
-		atrio.setStanzaAdiacente("est", aulaN11);
-		atrio.setStanzaAdiacente("sud", aulaN10);
-		atrio.setStanzaAdiacente("ovest", laboratorio);
-		aulaN11.setStanzaAdiacente("est", laboratorio);
-		aulaN11.setStanzaAdiacente("ovest", atrio);
-		aulaN10.setStanzaAdiacente("nord", atrio);
-		aulaN10.setStanzaAdiacente("est", aulaN11);
-		aulaN10.setStanzaAdiacente("ovest", laboratorio);
-		laboratorio.setStanzaAdiacente("est", atrio);
-		laboratorio.setStanzaAdiacente("ovest", aulaN11);
-		biblioteca.setStanzaAdiacente("sud", atrio);
+		atrio.setStanzaAdiacente(Direzione.valueOf("nord"), biblioteca);
+		atrio.setStanzaAdiacente(Direzione.valueOf("est"), aulaN11);
+		atrio.setStanzaAdiacente(Direzione.valueOf("sud"), aulaN10);
+		atrio.setStanzaAdiacente(Direzione.valueOf("ovest"), laboratorio);
+		aulaN11.setStanzaAdiacente(Direzione.valueOf("est"), laboratorio);
+		aulaN11.setStanzaAdiacente(Direzione.valueOf("ovest"), atrio);
+		aulaN10.setStanzaAdiacente(Direzione.valueOf("nord"), atrio);
+		aulaN10.setStanzaAdiacente(Direzione.valueOf("est"), aulaN11);
+		aulaN10.setStanzaAdiacente(Direzione.valueOf("ovest"), laboratorio);
+		laboratorio.setStanzaAdiacente(Direzione.valueOf("est"), atrio);
+		laboratorio.setStanzaAdiacente(Direzione.valueOf("ovest"), aulaN11);
+		biblioteca.setStanzaAdiacente(Direzione.valueOf("sud"), atrio);
 
 		/* pone gli attrezzi nelle stanze */
 		aulaN10.addAttrezzo(lanterna);
