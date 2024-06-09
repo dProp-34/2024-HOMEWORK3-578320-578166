@@ -3,9 +3,7 @@ package it.uniroma3.diadia.comandi;
 import it.uniroma3.diadia.Partita;
 
 public class ComandoAiuto extends AbstractComando {
-	static final private String[] ELENCO_COMANDI = {
-			"vai", "prendi", "posa", "guarda", "aiuto", "fine" };
-	
+	static final private String[] ELENCO_COMANDI = { "vai", "prendi", "posa", "guarda", "aiuto", "fine" };
 	private final String NOME = "aiuto";
 
 	/**
@@ -25,5 +23,4 @@ public class ComandoAiuto extends AbstractComando {
 	public String getNome() {
 		return this.NOME;
 	}
-
 }

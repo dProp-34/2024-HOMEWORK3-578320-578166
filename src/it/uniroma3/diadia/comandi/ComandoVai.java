@@ -16,13 +16,13 @@ public class ComandoVai extends AbstractComando {
 	@Override
 	public String esegui(Partita partita) {
 		if (this.direzione == null)
-			return("Dove vuoi andare?\n");
+			return ("Dove vuoi andare?\n");
 		else {
 			Stanza stanzaCorrente = partita.getLabirinto().getStanzaCorrente();
 			Stanza prossimaStanza = stanzaCorrente.getStanzaAdiacente(direzione);
 			if (prossimaStanza == null)
 				// return ("Non puoi andare li'.\n");
-				return("*Bonk*\n");
+				return ("*Bonk*\n");
 			else {
 				partita.getLabirinto().setStanzaCorrente(prossimaStanza);
 				partita.getGiocatore().decrementaCfu();
@@ -36,15 +36,14 @@ public class ComandoVai extends AbstractComando {
 		if (parametro != null)
 			this.direzione = Direzione.valueOf(parametro);
 	}
-	
+
 	@Override
 	public String getParametro() {
 		return this.direzione.name();
 	}
-	
+
 	@Override
 	public String getNome() {
 		return this.NOME;
 	}
-	
 }
