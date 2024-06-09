@@ -27,7 +27,7 @@ public class StanzaBloccataTest {
 	}
 
 	@Test
-	void testUscitaSbloccata() {
+	public void testUscitaSbloccata() {
 		bloccata.addAttrezzo(pieDiPorco);
 		assertEquals(nord, bloccata.getStanzaAdiacente(Direzione.nord));
 	}

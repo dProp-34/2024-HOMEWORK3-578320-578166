@@ -21,27 +21,27 @@ public class ComandoPrendiTest {
 	}
 
 	@Test
-	void testEseguiPrendi() {
+	public void testEseguiPrendi() {
 		primo.setParametro("Chiavi");
 		primo.esegui(martedi);
 		assertEquals(chiavi, martedi.getGiocatore().getBorsa().getAttrezzo("Chiavi"));
 	}
 
 	@Test
-	void testCosaVuoiPrendere() {
+	public void testCosaVuoiPrendere() {
 		primo.esegui(martedi);
 		assertEquals(null, martedi.getGiocatore().getBorsa().getAttrezzo("Chiavi"));
 	}
 
 	@Test
-	void testQuellAttrezzoNonPresenteNellaStanza() {
+	public void testQuellAttrezzoNonPresenteNellaStanza() {
 		primo.setParametro("Etere");
 		primo.esegui(martedi);
 		assertEquals(null, martedi.getGiocatore().getBorsa().getAttrezzo("Chiavi"));
 	}
 
 	@Test
-	void testNonPuoiPrendereQuellAttrezzo() {
+	public void testNonPuoiPrendereQuellAttrezzo() {
 		Attrezzo uno = new Attrezzo("Uno", 1);
 		for (int i = 0; i < 15; i++)
 			martedi.getGiocatore().getBorsa().addAttrezzo(uno);

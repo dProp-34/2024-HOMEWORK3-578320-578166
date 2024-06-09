@@ -11,8 +11,8 @@ public class LabirintoBuilder {
 	private LinkedList<Stanza> listaStanze;
 
 	public LabirintoBuilder() {
-		this.labirinto = new Labirinto();
 		this.listaStanze = new LinkedList<>();
+		this.labirinto = new Labirinto();
 	}
 
 	public Labirinto getLabirinto() {

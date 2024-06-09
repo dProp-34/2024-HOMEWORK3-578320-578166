@@ -2,14 +2,12 @@ package it.uniroma3.diadia.simulatore;
 
 import java.util.List;
 import java.util.Scanner;
-
 import it.uniroma3.diadia.DiaDia;
 import it.uniroma3.diadia.IOSimulator;
 import it.uniroma3.diadia.ambienti.Labirinto;
 import it.uniroma3.diadia.ambienti.Stanza;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 import it.uniroma3.diadia.comandi.Direzione;
-
 
 public class Simulatore {
 	public static IOSimulator creaSimulazionePartitaFacile(List<String> comandiDaLeggere) {
@@ -53,15 +51,14 @@ public class Simulatore {
 		IOSimulator io = new IOSimulator(comandiDaLeggere);
 		Scanner scannerDiLinee = new Scanner(System.in);
 		Labirinto monolocale = Labirinto.newLabirintoBuilder()
-				.addStanzaIniziale("salotto") 
-				.addStanzaVincente("salotto") 
+				.addStanzaIniziale("salotto")
+				.addStanzaVincente("salotto")
 				.getLabirinto();
 		DiaDia gioco = new DiaDia(monolocale, io);
 		gioco.gioca(scannerDiLinee);
 		return io;
 	}
-	
-	
+
 	public static IOSimulator creaSimulazionePartitaBilocale(List<String> comandiDaLeggere) {
 		IOSimulator io = new IOSimulator(comandiDaLeggere);
 		Scanner scannerDiLinee = new Scanner(System.in);
@@ -75,14 +72,14 @@ public class Simulatore {
 		gioco.gioca(scannerDiLinee);
 		return io;
 	}
-	
+
 	public static IOSimulator creaSimulazionePartitaTrilocale(List<String> comandiDaLeggere) {
 		IOSimulator io = new IOSimulator(comandiDaLeggere);
 		Scanner scannerDiLinee = new Scanner(System.in);
 		Labirinto trilocale = Labirinto.newLabirintoBuilder()
 				.addStanzaIniziale("salotto")
 				.addStanza("cucina")
-				.addAttrezzo("pentola",1) // dove? fa riferimento all’ultima stanza aggiunta
+				.addAttrezzo("pentola", 1) // dove? fa riferimento all’ultima stanza aggiunta
 				.addStanzaVincente("camera")
 				.addAdiacenza("salotto", "cucina", Direzione.nord)
 				.addAdiacenza("cucina", "camera", Direzione.est)

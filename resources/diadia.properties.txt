@@ -1,0 +1,3 @@
+Labirinto in uso: labirinto1.txt
+CFU Iniziali: 20
+Peso Max Borsa: 20

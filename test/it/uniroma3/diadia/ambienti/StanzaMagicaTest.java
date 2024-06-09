@@ -21,12 +21,12 @@ public class StanzaMagicaTest {
 	}
 
 	@Test
-	void testmodificaNull() {
+	public void testmodificaNull() {
 		assertFalse(this.magica.addAttrezzo(null));
 	}
 
 	@Test
-	void testmodificaAttrezzo() {
+	public void testmodificaAttrezzo() {
 		for (int i = 0; i < 5; i++)
 			magica.addAttrezzo(io.getBorsa().removeAttrezzo("Matrioska"));
 		assertTrue(magica.getAttrezzo("aksoirtaM").getPeso() == 2);

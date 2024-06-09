@@ -39,39 +39,39 @@ public class StanzaTest {
 	}
 
 	@Test
-	void testGetDirezioniStanzaVuota() {
+	public void testGetDirezioniStanzaVuota() {
 		assertNotNull(this.etere.getDirezioni());
 	}
 
 	@Test
-	void testAddAttrezzoNull() {
+	public void testAddAttrezzoNull() {
 		assertFalse(this.etere.addAttrezzo(null));
 	}
 
 	@Test
-	void testAddAttrezzo() {
+	public void testAddAttrezzo() {
 		Attrezzo attrezzo = this.bar.getAttrezzo("Tazzina");
 		assertNotNull(attrezzo);
 		assertEquals("Tazzina", attrezzo.getNome());
 	}
 
 	@Test
-	void testRemoveAttrezzoNull() {
+	public void testRemoveAttrezzoNull() {
 		assertFalse(this.etere.removeAttrezzo(null));
 	}
 
 	@Test
-	void testRemoveAttrezzoBorsaVuota() {
+	public void testRemoveAttrezzoBorsaVuota() {
 		assertFalse(this.etere.removeAttrezzo(this.piatto));
 	}
 
 	@Test
-	void testRemoveAttrezzoInesistente() {
+	public void testRemoveAttrezzoInesistente() {
 		assertFalse(this.bar.removeAttrezzo(this.piatto));
 	}
 
 	@Test
-	void testRemoveAttrezzo() {
+	public void testRemoveAttrezzo() {
 		assertTrue(this.bar.removeAttrezzo(this.tazzina));
 		assertFalse(this.bar.hasAttrezzo("Tazzina"));
 	}
