@@ -52,6 +52,14 @@ public class LabirintoBuilder {
 		return this;
 	}
 
+	public void setStanzaIniziale(String nomeStanzaIniziale) {
+		this.labirinto.setStanzaCorrente(this.get(nomeStanzaIniziale));
+	}
+
+	public void setStanzaVincente(String nomeStanzaVincente) {
+		this.labirinto.setStanzaVincente(this.get(nomeStanzaVincente));
+	}
+
 	public LabirintoBuilder addStanzaMagica(String nomeStanzaMagica, int sogliaMagica) {
 		Stanza daAggiungere = new StanzaMagica(nomeStanzaMagica, sogliaMagica);
 		this.listaStanze.add(daAggiungere);
@@ -79,17 +87,6 @@ public class LabirintoBuilder {
 		return this;
 	}
 
-	public Stanza get(String nomeStanza) {
-		Stanza stanza = null;
-		Iterator<Stanza> it = this.listaStanze.iterator();
-		while (it.hasNext()) {
-			Stanza s = it.next();
-			if (s != null && s.getNome().equals(nomeStanza))
-				stanza = s;
-		}
-		return stanza;
-	}
-
 	public LabirintoBuilder addAdiacenza(String nomeFrom, String nomeTo, Direzione direzione) {
 		if (direzione == null)
 			return null;
@@ -99,5 +96,16 @@ public class LabirintoBuilder {
 			from.setStanzaAdiacente(direzione, to);
 		// tiene traccia
 		return this;
+	}
+
+	public Stanza get(String nomeStanza) {
+		Stanza stanza = null;
+		Iterator<Stanza> it = this.listaStanze.iterator();
+		while (it.hasNext()) {
+			Stanza s = it.next();
+			if (s != null && s.getNome().equals(nomeStanza))
+				stanza = s;
+		}
+		return stanza;
 	}
 }

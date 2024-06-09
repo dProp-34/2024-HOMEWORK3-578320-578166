@@ -4,11 +4,13 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.LineNumberReader;
+import java.io.StringReader;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 
 import it.uniroma3.diadia.attrezzi.Attrezzo;
+import it.uniroma3.diadia.comandi.Direzione;
 
 public class CaricatoreLabirinto {
 	/* prefisso di una singola riga di testo contenente tutti i nomi delle stanze */
@@ -46,12 +48,21 @@ public class CaricatoreLabirinto {
 		this.reader = new LineNumberReader(new FileReader(nomeFile));
 	}
 
+	public CaricatoreLabirinto(StringReader fixtureFile) {
+		this.builder = new LabirintoBuilder();
+		this.reader = new LineNumberReader(fixtureFile);
+	}
+
 	public void carica() throws FormatoFileNonValidoException {
 		try {
+			reader.mark(524288); // Impone un limite ai file labirinto da caricare di ~1MB
 			this.leggiECreaStanze();
 			this.leggiInizialeEvincente();
 			this.leggiECollocaAttrezzi();
 			this.leggiEImpostaUscite();
+		} catch (IOException e) {
+			e.printStackTrace();
+			throw new RuntimeException(e);
 		} finally {
 			try {
 				reader.close();
@@ -64,9 +75,15 @@ public class CaricatoreLabirinto {
 
 	private String leggiRigaCheCominciaPer(String marker) throws FormatoFileNonValidoException {
 		try {
-			String riga = this.reader.readLine();
-			check(riga.startsWith(marker), "era attesa una riga che cominciasse per " + marker);
-			return riga.substring(marker.length());
+			reader.reset();
+			String riga;
+			while ((riga = this.reader.readLine()) != null) {
+				// System.out.println("Sto leggendo: " + riga);
+				if (riga.startsWith(marker))
+					return riga.substring(marker.length()).trim();
+			}
+			// System.out.println("Non è presente una riga che cominci per " + marker);
+			return null;
 		} catch (IOException e) {
 			throw new FormatoFileNonValidoException(e.getMessage());
 		}
@@ -75,47 +92,53 @@ public class CaricatoreLabirinto {
 	private void leggiECreaStanze() throws FormatoFileNonValidoException {
 		String nomiStanze = this.leggiRigaCheCominciaPer(STANZE_MARKER);
 		for (String nomeStanza : separaStringheAlleVirgole(nomiStanze)) {
+			// if (!isStanzaValida(nomeStanza)) Se la stanza non è già stata creata
 			this.builder.addStanza(nomeStanza);
 		}
 	}
 
+	@SuppressWarnings("resource")
 	private List<String> separaStringheAlleVirgole(String string) {
 		List<String> result = new LinkedList<>();
 		Scanner scanner = new Scanner(string);
 		scanner.useDelimiter(",");
-		try (Scanner scannerDiParole = scanner) {
-			result.add(scannerDiParole.next());
+		// try (Scanner scannerDiParole = scanner) {
+		while (scanner.hasNext()) {
+			result.add(scanner.next().trim()); // Trim each string to remove leading and trailing spaces
 		}
 		return result;
 	}
 
 	private void leggiInizialeEvincente() throws FormatoFileNonValidoException {
-		String nomeStanzaIniziale = null;
-		nomeStanzaIniziale = this.leggiRigaCheCominciaPer(STANZA_INIZIALE_MARKER);
+		String nomeStanzaIniziale = this.leggiRigaCheCominciaPer(STANZA_INIZIALE_MARKER);
 		check(this.isStanzaValida(nomeStanzaIniziale), nomeStanzaIniziale + " non definita");
 		String nomeStanzaVincente = this.leggiRigaCheCominciaPer(STANZA_VINCENTE_MARKER);
 		check(this.isStanzaValida(nomeStanzaVincente), nomeStanzaVincente + " non definita");
-		this.builder.addStanzaIniziale(nomeStanzaIniziale);
-		this.builder.addStanzaVincente(nomeStanzaVincente);
+		this.builder.setStanzaIniziale(nomeStanzaIniziale);
+		this.builder.setStanzaVincente(nomeStanzaVincente);
 	}
 
 	private void leggiECollocaAttrezzi() throws FormatoFileNonValidoException {
 		String specificheAttrezzi = this.leggiRigaCheCominciaPer(ATTREZZI_MARKER);
-
-		for (String specificaAttrezzo : separaStringheAlleVirgole(specificheAttrezzi)) {
-			String nomeAttrezzo = null;
-			String pesoAttrezzo = null;
-			String nomeStanza = null;
-			try (Scanner scannerLinea = new Scanner(specificaAttrezzo)) {
-				check(scannerLinea.hasNext(), msgTerminazionePrecoce("il nome di un attrezzo."));
-				nomeAttrezzo = scannerLinea.next();
-				check(scannerLinea.hasNext(), msgTerminazionePrecoce("il peso dell'attrezzo " + nomeAttrezzo + "."));
-				pesoAttrezzo = scannerLinea.next();
-				check(scannerLinea.hasNext(),
-						msgTerminazionePrecoce("il nome della stanza in cui collocare l'attrezzo " + nomeAttrezzo + "."));
-				nomeStanza = scannerLinea.next();
+		if (specificheAttrezzi != null) { // Se esiste una riga che comincia per "Attrezzi:"
+			for (String specificaAttrezzo : separaStringheAlleVirgole(specificheAttrezzi)) {
+				String nomeAttrezzo = null;
+				String pesoAttrezzo = null;
+				String nomeStanza = null;
+				try (Scanner scannerDiLinea = new Scanner(specificaAttrezzo)) {
+					// while (scannerDiLinea.hasNext()) {
+					check(scannerDiLinea.hasNext(),
+							msgTerminazionePrecoce("il nome di un attrezzo."));
+					nomeAttrezzo = scannerDiLinea.next();
+					check(scannerDiLinea.hasNext(),
+							msgTerminazionePrecoce("il peso dell'attrezzo " + nomeAttrezzo + "."));
+					pesoAttrezzo = scannerDiLinea.next();
+					check(scannerDiLinea.hasNext(),
+							msgTerminazionePrecoce("il nome della stanza in cui collocare l'attrezzo " + nomeAttrezzo + "."));
+					nomeStanza = scannerDiLinea.next();
+				}
+				posaAttrezzo(nomeAttrezzo, pesoAttrezzo, nomeStanza);
 			}
-			posaAttrezzo(nomeAttrezzo, pesoAttrezzo, nomeStanza);
 		}
 	}
 
@@ -139,33 +162,43 @@ public class CaricatoreLabirinto {
 
 	private void leggiEImpostaUscite() throws FormatoFileNonValidoException {
 		String specificheUscite = this.leggiRigaCheCominciaPer(USCITE_MARKER);
-		try (Scanner scannerDiLinea = new Scanner(specificheUscite)) {
-
-			while (scannerDiLinea.hasNext()) {
-				check(scannerDiLinea.hasNext(), msgTerminazionePrecoce("le uscite di una stanza."));
-				String stanzaPartenza = scannerDiLinea.next();
-				check(scannerDiLinea.hasNext(),
-						msgTerminazionePrecoce("la direzione di una uscita della stanza " + stanzaPartenza));
-				String dir = scannerDiLinea.next();
-				check(scannerDiLinea.hasNext(), msgTerminazionePrecoce(
-						"la destinazione di una uscita della stanza " + stanzaPartenza + " nella direzione " + dir));
-				String stanzaDestinazione = scannerDiLinea.next();
-
-				impostaUscita(stanzaPartenza, dir, stanzaDestinazione);
+		if (specificheUscite != null) { // Se esiste una riga che comincia per "Uscite:"
+			for (String specificaUscita : separaStringheAlleVirgole(specificheUscite)) {
+				String stanzaPartenza = null;
+				Direzione dir = null;
+				String stanzaDestinazione = null;
+				try (Scanner scannerDiLinea = new Scanner(specificaUscita)) {
+					// while (scannerDiLinea.hasNext()) {
+					check(scannerDiLinea.hasNext(),
+							msgTerminazionePrecoce("le uscite di una stanza."));
+					stanzaPartenza = scannerDiLinea.next();
+					check(scannerDiLinea.hasNext(),
+							msgTerminazionePrecoce("la direzione di una uscita della stanza " + stanzaPartenza));
+					dir = Direzione.valueOf(scannerDiLinea.next());
+					check(scannerDiLinea.hasNext(), msgTerminazionePrecoce(
+							"la destinazione di una uscita della stanza " + stanzaPartenza + " nella direzione " + dir));
+					stanzaDestinazione = scannerDiLinea.next();
+				}
+				/*
+				 * impostaUscita(stanzaPartenza, dir, stanzaDestinazione);
+				 * }
+				 * }
+				 * }
+				 * 
+				 * private void impostaUscita(String nomeDa, Direzione dir, String nomeA) throws
+				 * FormatoFileNonValidoException {
+				 * check(isStanzaValida(nomeDa), "Stanza di partenza sconosciuta " + dir);
+				 * check(isStanzaValida(nomeA), "Stanza di destinazione sconosciuta " + dir);
+				 * Stanza partenzaDa = this.builder.get(nomeDa);
+				 * Stanza arrivoA = this.builder.get(nomeA);
+				 */
+				this.builder.addAdiacenza(stanzaPartenza, stanzaDestinazione, dir);
 			}
 		}
 	}
 
 	private String msgTerminazionePrecoce(String msg) {
 		return "Terminazione precoce del file prima di leggere " + msg;
-	}
-
-	private void impostaUscita(String nomeDa, String dir, String nomeA) throws FormatoFileNonValidoException {
-		check(isStanzaValida(nomeDa), "Stanza di partenza sconosciuta " + dir);
-		check(isStanzaValida(nomeA), "Stanza di destinazione sconosciuta " + dir);
-		Stanza partenzaDa = this.builder.get(nomeDa);
-		Stanza arrivoA = this.builder.get(nomeA);
-		partenzaDa.setStanzaAdiacente(dir, arrivoA);
 	}
 
 	final private void check(boolean condizioneCheDeveEsseraVera, String messaggioErrore)
@@ -181,5 +214,13 @@ public class CaricatoreLabirinto {
 
 	public Stanza getStanzaVincente() {
 		return this.builder.getLabirinto().getStanzaVincente();
+	}
+
+	public LineNumberReader getReader() {
+		return reader;
+	}
+
+	public LabirintoBuilder getBuilder() {
+		return builder;
 	}
 }

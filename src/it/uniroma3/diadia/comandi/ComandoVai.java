@@ -4,6 +4,7 @@ import it.uniroma3.diadia.IO;
 import it.uniroma3.diadia.Partita;
 import it.uniroma3.diadia.ambienti.Stanza;
 
+@SuppressWarnings("unused")
 public class ComandoVai implements Comando {
 	private Direzione direzione;
 	private IO io;
@@ -17,13 +18,13 @@ public class ComandoVai implements Comando {
 	@Override
 	public String esegui(Partita partita) {
 		if (this.direzione == null)
-			return("Dove vuoi andare?\n");
+			return ("Dove vuoi andare?\n");
 		else {
 			Stanza stanzaCorrente = partita.getLabirinto().getStanzaCorrente();
 			Stanza prossimaStanza = stanzaCorrente.getStanzaAdiacente(direzione);
 			if (prossimaStanza == null)
 				// return ("Non puoi andare li'.\n");
-				return("*Bonk*\n");
+				return ("*Bonk*\n");
 			else {
 				partita.getLabirinto().setStanzaCorrente(prossimaStanza);
 				partita.getGiocatore().decrementaCfu();
@@ -37,10 +38,9 @@ public class ComandoVai implements Comando {
 		Direzione d = Direzione.valueOf(parametro);
 		this.direzione = d;
 	}
-	
+
 	@Override
 	public void setIo(IO io) {
-		// TODO Auto-generated method stub
 		this.io = io;
 	}
 }
