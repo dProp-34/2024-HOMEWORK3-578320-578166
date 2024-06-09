@@ -2,6 +2,7 @@ package it.uniroma3.diadia;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class IOSimulator implements IO {
 	
@@ -50,11 +51,12 @@ public class IOSimulator implements IO {
 	}
 
 	@Override
-	public String leggiRiga() {
+	public String leggiRiga(Scanner scannerDiLinee) {
 		String riga = null;
 		
 		riga = this.righeLette.get(indiceRigheLette);
 		this.indiceRigheLette++;
 		return riga;
 	}
+
 }

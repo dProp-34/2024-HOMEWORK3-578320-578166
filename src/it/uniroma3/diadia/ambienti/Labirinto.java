@@ -1,6 +1,9 @@
 package it.uniroma3.diadia.ambienti;
 
 import java.io.FileNotFoundException;
+import it.uniroma3.diadia.ambienti.FormatoFileNonValidoException;
+import java.util.Iterator;
+import java.util.LinkedList;
 
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 import it.uniroma3.diadia.comandi.Direzione;
@@ -9,20 +12,11 @@ public class Labirinto {
 	private Stanza stanzaCorrente;
 	private Stanza stanzaVincente;
 
-	public Labirinto(String nomeFile) throws FileNotFoundException, FormatoFileNonValidoException {
+	private Labirinto(String nomeFile) throws FileNotFoundException, FormatoFileNonValidoException {
 		CaricatoreLabirinto c = new CaricatoreLabirinto(nomeFile);
 		c.carica();
 		this.stanzaCorrente = c.getStanzaIniziale();
 		this.stanzaVincente = c.getStanzaVincente();
-	}
-
-	public Labirinto() {
-		this.stanzaCorrente = new Stanza();
-		this.stanzaVincente = new Stanza();
-	}
-
-	public static LabirintoBuilder newLabirintoBuilder() {
-		return new LabirintoBuilder();
 	}
 
 	public Stanza getStanzaCorrente() {
@@ -41,10 +35,123 @@ public class Labirinto {
 		this.stanzaVincente = stanzaVincente;
 	}
 
+	public static LabirintoBuilder newBuilder(String labirinto) throws FileNotFoundException, FormatoFileNonValidoException {
+		return new LabirintoBuilder(labirinto);
+	}
+
+	public static class LabirintoBuilder {
+		private Labirinto labirinto;
+		private LinkedList<Stanza> listaStanze;
+
+		public LabirintoBuilder(String labirinto) throws FileNotFoundException, FormatoFileNonValidoException {
+			this.listaStanze = new LinkedList<>();
+			this.labirinto = new Labirinto(labirinto);
+		}
+
+		public Labirinto getLabirinto() {
+			return labirinto;
+		}
+
+		public void setLabirinto(Labirinto labirinto) {
+			this.labirinto = labirinto;
+		}
+
+		public LinkedList<Stanza> getListaStanze() {
+			return listaStanze;
+		}
+
+		public void setListaStanze(LinkedList<Stanza> listaStanze) {
+			this.listaStanze = listaStanze;
+		}
+		
+		public LabirintoBuilder addStanza(String nome) {
+			if (this.get(nome) == null)
+				this.listaStanze.add(new Stanza(nome));
+			// tiene traccia
+			return this;
+		}
+
+		public LabirintoBuilder addStanzaIniziale(String nome) {
+			this.addStanza(nome);
+			this.labirinto.setStanzaCorrente(this.listaStanze.getLast());
+			// tiene traccia
+			return this;
+		}
+
+		public LabirintoBuilder addStanzaVincente(String nome) {
+			this.addStanza(nome);
+			this.labirinto.setStanzaVincente(this.listaStanze.getLast());
+			// tiene traccia
+			return this;
+		}
+
+		public void setStanzaIniziale(String nomeStanzaIniziale) {
+			this.labirinto.setStanzaCorrente(this.get(nomeStanzaIniziale));
+		}
+
+		public void setStanzaVincente(String nomeStanzaVincente) {
+			this.labirinto.setStanzaVincente(this.get(nomeStanzaVincente));
+		}
+
+		public LabirintoBuilder addStanzaMagica(String nomeStanzaMagica, int sogliaMagica) {
+			Stanza daAggiungere = new StanzaMagica(nomeStanzaMagica, sogliaMagica);
+			this.listaStanze.add(daAggiungere);
+			// tiene traccia
+			return this;
+		}
+
+		public LabirintoBuilder addStanzaBloccata(String string, Direzione direzioneBloccata, String string2) {
+			Stanza daAggiungere = new StanzaBloccata(string, direzioneBloccata, string2);
+			this.listaStanze.add(daAggiungere);
+			// tiene traccia
+			return this;
+		}
+
+		public LabirintoBuilder addStanzaBuia(String string, String string2) {
+			Stanza daAggiungere = new StanzaBuia(string, string2);
+			this.listaStanze.add(daAggiungere);
+			// tiene traccia
+			return this;
+		}
+
+		public LabirintoBuilder addAttrezzo(String nome, int peso) {
+			this.listaStanze.getLast().addAttrezzo(new Attrezzo(nome, peso));
+			// tiene traccia
+			return this;
+			}
+
+		public LabirintoBuilder addAdiacenza(String nomeFrom, String nomeTo, Direzione direzione) {
+			if (direzione == null)
+				return null;
+			Stanza from = this.get(nomeFrom);
+			Stanza to = this.get(nomeTo);
+			if (from != null && to != null)
+				from.setStanzaAdiacente(direzione, to);
+			// tiene traccia
+			return this;
+		}
+
+		public Stanza get(String nomeStanza) {
+			Stanza stanza = null;
+			Iterator<Stanza> it = this.listaStanze.iterator();
+			while (it.hasNext()) {
+				Stanza s = it.next();
+				if (s != null && s.getNome().equals(nomeStanza))
+					stanza = s;
+			}
+			return stanza;
+		}
+	}
+
 	/**
 	 * Crea le stanze e le porte di collegamento di un
-	 * esempio di Labirinto, senza l'utilizzo di LabirintoBuilder
+	 * esempio di Labirinto, senza l'utilizzo di LabirintoBuilder.
+  	 * TODO da togliere e modificare i test che ne fanno uso
 	 */
+	public Labirinto() {
+		this.demo();
+	}
+
 	public void demo() {
 		/* crea gli attrezzi */
 		Attrezzo lanterna = new Attrezzo("lanterna", 3);
