@@ -3,12 +3,14 @@ package it.uniroma3.diadia.comandi;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import java.io.FileNotFoundException;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import it.uniroma3.diadia.Partita;
+import it.uniroma3.diadia.ambienti.FormatoFileNonValidoException;
 import it.uniroma3.diadia.ambienti.Labirinto;
-import it.uniroma3.diadia.ambienti.LabirintoBuilder;
 
 public class ComandoVaiTest {
 	private Partita mercoledi;
@@ -32,8 +34,8 @@ public class ComandoVaiTest {
 	}
 
 	@Test
-	public void testDoveVuoiAndare() {
-		Labirinto labirinto = new LabirintoBuilder()
+	public void testDoveVuoiAndare() throws FileNotFoundException, FormatoFileNonValidoException {
+		Labirinto labirinto = Labirinto.newBuilder(null)
 				.addStanzaIniziale("LabCampusOne")
 				.getLabirinto();
 		mercoledi.setLabirinto(labirinto);
@@ -43,8 +45,8 @@ public class ComandoVaiTest {
 	}
 
 	@Test
-	public void testNonPuoiAndareLi() {
-		Labirinto labirinto = new LabirintoBuilder()
+	public void testNonPuoiAndareLi() throws FileNotFoundException, FormatoFileNonValidoException {
+		Labirinto labirinto = Labirinto.newBuilder(null)
 				.addStanzaIniziale("LabCampusOne")
 				.getLabirinto();
 		mercoledi.setLabirinto(labirinto);
@@ -55,8 +57,8 @@ public class ComandoVaiTest {
 	}
 
 	@Test
-	public void testLabirintoBilocale() {
-		Labirinto labirinto = new LabirintoBuilder()
+	public void testLabirintoBilocale() throws FileNotFoundException, FormatoFileNonValidoException {
+		Labirinto labirinto = Labirinto.newBuilder(null)
 				.addStanzaIniziale("LabCampusOne")
 				.addStanzaVincente("Biblioteca")
 				.addAdiacenza("LabCampusOne", "Biblioteca", Direzione.ovest)
@@ -70,8 +72,8 @@ public class ComandoVaiTest {
 	}
 
 	@Test
-	public void testLabirintoCompleto() {
-		Labirinto labirinto = new LabirintoBuilder()
+	public void testLabirintoCompleto() throws FileNotFoundException, FormatoFileNonValidoException {
+		Labirinto labirinto = Labirinto.newBuilder(null)
 				.addStanzaIniziale("LabCampusOne")
 				.addStanza("Biblioteca")
 				.addAdiacenza("LabCampusOne", "Biblioteca", Direzione.ovest)

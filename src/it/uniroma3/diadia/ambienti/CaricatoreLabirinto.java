@@ -41,21 +41,21 @@ public class CaricatoreLabirinto {
 	 * 
 	 */
 	private LineNumberReader reader;
-	private LabirintoBuilder builder;
+	private Labirinto.LabirintoBuilder builder;
 
-	public CaricatoreLabirinto(String nomeFile) throws FileNotFoundException {
-		this.builder = new LabirintoBuilder();
+	public CaricatoreLabirinto(String nomeFile) throws FileNotFoundException, FormatoFileNonValidoException {
+		this.builder = Labirinto.newBuilder(nomeFile);
 		this.reader = new LineNumberReader(new FileReader(nomeFile));
 	}
 
-	public CaricatoreLabirinto(StringReader fixtureFile) {
-		this.builder = new LabirintoBuilder();
+	public CaricatoreLabirinto(StringReader fixtureFile) throws FileNotFoundException, FormatoFileNonValidoException {
+		this.builder = Labirinto.newBuilder(null);
 		this.reader = new LineNumberReader(fixtureFile);
 	}
 
 	public void carica() throws FormatoFileNonValidoException {
 		try {
-			reader.mark(524288); // Impone un limite ai file labirinto da caricare di ~1MB
+			reader.mark(524288); // Impone un limite ai file Labirinto da caricare di ~1MB
 			this.leggiECreaStanze();
 			this.leggiInizialeEvincente();
 			this.leggiECollocaAttrezzi();
@@ -92,7 +92,6 @@ public class CaricatoreLabirinto {
 	private void leggiECreaStanze() throws FormatoFileNonValidoException {
 		String nomiStanze = this.leggiRigaCheCominciaPer(STANZE_MARKER);
 		for (String nomeStanza : separaStringheAlleVirgole(nomiStanze)) {
-			// if (!isStanzaValida(nomeStanza)) Se la stanza non è già stata creata
 			this.builder.addStanza(nomeStanza);
 		}
 	}
@@ -180,10 +179,7 @@ public class CaricatoreLabirinto {
 					stanzaDestinazione = scannerDiLinea.next();
 				}
 				/*
-				 * impostaUscita(stanzaPartenza, dir, stanzaDestinazione);
-				 * }
-				 * }
-				 * }
+				 * impostaUscita(stanzaPartenza, dir, stanzaDestinazione);}}}
 				 * 
 				 * private void impostaUscita(String nomeDa, Direzione dir, String nomeA) throws
 				 * FormatoFileNonValidoException {
@@ -217,10 +213,10 @@ public class CaricatoreLabirinto {
 	}
 
 	public LineNumberReader getReader() {
-		return reader;
+		return this.reader;
 	}
 
-	public LabirintoBuilder getBuilder() {
-		return builder;
+	public Labirinto.LabirintoBuilder getBuilder() {
+		return this.builder;
 	}
 }

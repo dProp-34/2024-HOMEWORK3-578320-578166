@@ -7,7 +7,7 @@ import java.io.StringReader;
 import java.util.Arrays;
 import java.util.Collections;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 import it.uniroma3.diadia.comandi.Direzione;
@@ -30,7 +30,7 @@ public class CaricatoreLabirintoTest {
 	 * @Test(expected = FormatoFileNonValidoException.class)
 	 */
 	@Test
-	public void testMonolocale() throws FormatoFileNonValidoException {
+	public void testMonolocale() throws Exception {
 		String fixture = "Stanze: " + nomeStanzaIniziale +
 				"\nInizio: " + nomeStanzaIniziale +
 				"\nVincente: " + nomeStanzaIniziale;
@@ -43,7 +43,7 @@ public class CaricatoreLabirintoTest {
 	}
 
 	@Test
-	public void testMonolocaleConAttrezzo() throws FormatoFileNonValidoException {
+	public void testMonolocaleConAttrezzo() throws Exception {
 		String fixture = "Stanze: " + nomeStanzaIniziale +
 				"\nInizio: " + nomeStanzaIniziale +
 				"\nVincente: " + nomeStanzaIniziale +
@@ -59,7 +59,7 @@ public class CaricatoreLabirintoTest {
 	}
 
 	@Test
-	public void testMonolocaleConAttrezzoSingoloDuplicato() throws FormatoFileNonValidoException {
+	public void testMonolocaleConAttrezzoSingoloDuplicato() throws Exception {
 		String fixture = "Stanze: " + nomeStanzaIniziale +
 				"\nInizio: " + nomeStanzaIniziale +
 				"\nVincente: " + nomeStanzaIniziale +
@@ -83,7 +83,7 @@ public class CaricatoreLabirintoTest {
 	 * .getLabirinto();
 	 */
 	@Test
-	public void testBilocale() throws FormatoFileNonValidoException {
+	public void testBilocale() throws Exception {
 		String fixture = "Stanze: " + nomeStanzaIniziale + ", " + nomeStanzaVincente +
 				"\nInizio: " + nomeStanzaIniziale +
 				"\nVincente: " + nomeStanzaVincente +
@@ -110,7 +110,7 @@ public class CaricatoreLabirintoTest {
 	 * .getLabirinto();
 	 */
 	@Test
-	public void testTrilocale() throws FormatoFileNonValidoException {
+	public void testTrilocale() throws Exception {
 		String fixture = "Stanze: " + nomeStanzaIniziale + ", biblioteca, " + nomeStanzaVincente +
 				"\nInizio: " + nomeStanzaIniziale +
 				"\nVincente: " + nomeStanzaVincente +

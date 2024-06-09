@@ -7,14 +7,14 @@ public class ComandoAiuto extends AbstractComando {
 			"vai", "prendi", "posa", "guarda", "aiuto", "fine" };
 	
 	private final String NOME = "aiuto";
-	
+
 	/**
 	 * Stampa informazioni di aiuto.
 	 */
 	@Override
 	public String esegui(Partita partita) {
 		StringBuilder out = new StringBuilder();
-		for (String s : this.ELENCO_COMANDI)
+		for (String s : ComandoAiuto.ELENCO_COMANDI)
 			out.append(s + " ");
 		out.append("\n" + partita.getGiocatore().getBorsa().toString() +
 				"\nCFU Rimanenti: " + partita.getGiocatore().getCfu());
