@@ -26,5 +26,9 @@ public interface Comando {
      */
     public void setParametro(String parametro);
     
+    public String getParametro();
+    
     public void setIo(IO io);
+    
+//    public String getNome();
 }

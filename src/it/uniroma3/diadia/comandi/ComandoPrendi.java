@@ -1,12 +1,11 @@
 package it.uniroma3.diadia.comandi;
 
-import it.uniroma3.diadia.IO;
 import it.uniroma3.diadia.Partita;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 
-public class ComandoPrendi implements Comando {
-	private String nomeAttrezzo;
-	private IO io;
+public class ComandoPrendi extends AbstractComando {
+
+		private final String NOME = "prendi";
 
 	/**
 	 * Permette al giocatore di prendere l'attrezzo
@@ -14,10 +13,10 @@ public class ComandoPrendi implements Comando {
 	 */
 	@Override
 	public String esegui(Partita partita) {
-		if (nomeAttrezzo == null)
+		if (this.getParametro() == null)
 			return("Cosa vuoi prendere?\n");
 		else {
-			Attrezzo daPrendere = partita.getLabirinto().getStanzaCorrente().getAttrezzo(nomeAttrezzo);
+			Attrezzo daPrendere = partita.getLabirinto().getStanzaCorrente().getAttrezzo(this.getParametro());
 			if (daPrendere == null)
 				return("Quell'attrezzo non e' presente nella stanza.\n");
 			else {
@@ -26,22 +25,14 @@ public class ComandoPrendi implements Comando {
 				if (!successo)
 					return("Non puoi prendere quell'attrezzo.\n");
 				else
-					return("Hai preso " + nomeAttrezzo);
+					return("Hai preso " + this.getParametro());
 			}
 		}
 	}
-
-	/**
-	 * Imposta il nome dell'attrezzo da prendere.
-	 */
-	@Override
-	public void setParametro(String parametro) {
-		this.nomeAttrezzo = parametro;
-	}
 	
 	@Override
-	public void setIo(IO io) {
-		// TODO Auto-generated method stub
-		this.io = io;
+	public String getNome() {
+		return this.NOME;
 	}
+	
 }

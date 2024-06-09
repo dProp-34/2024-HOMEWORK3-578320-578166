@@ -1,12 +1,11 @@
 package it.uniroma3.diadia.comandi;
 
-import it.uniroma3.diadia.IO;
 import it.uniroma3.diadia.Partita;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 
-public class ComandoPosa implements Comando {
+public class ComandoPosa extends AbstractComando {
 	private String nomeAttrezzo;
-	private IO io;
+	private final String NOME = "posa";
 
 	/**
 	 * Permette al giocatore di posare un
@@ -26,15 +25,10 @@ public class ComandoPosa implements Comando {
 				return("Hai posato " + nomeAttrezzo);
 		}
 	}
-
-	@Override
-	public void setParametro(String parametro) {
-		this.nomeAttrezzo = parametro;
-	}
 	
 	@Override
-	public void setIo(IO io) {
-		// TODO Auto-generated method stub
-		this.io = io;
+	public String getNome() {
+		return this.NOME;
 	}
+	
 }
