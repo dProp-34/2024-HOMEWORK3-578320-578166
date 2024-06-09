@@ -1,5 +1,7 @@
 package it.uniroma3.diadia.ambienti;
 
+import java.io.FileNotFoundException;
+
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 import it.uniroma3.diadia.comandi.Direzione;
 
@@ -7,11 +9,18 @@ public class Labirinto {
 	private Stanza stanzaCorrente;
 	private Stanza stanzaVincente;
 
+	public Labirinto(String nomeFile) throws FileNotFoundException, FormatoFileNonValidoException {
+		CaricatoreLabirinto c = new CaricatoreLabirinto(nomeFile);
+		c.carica();
+		this.stanzaCorrente = c.getStanzaIniziale();
+		this.stanzaVincente = c.getStanzaVincente();
+	}
+
 	public Labirinto() {
 		this.stanzaCorrente = new Stanza();
 		this.stanzaVincente = new Stanza();
 	}
-	
+
 	public static LabirintoBuilder newLabirintoBuilder() {
 		return new LabirintoBuilder();
 	}

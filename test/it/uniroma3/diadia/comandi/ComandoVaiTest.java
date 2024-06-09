@@ -21,7 +21,7 @@ public class ComandoVaiTest {
 	}
 
 	@Test
-	void testEseguiVai() {
+	public void testEseguiVai() {
 		int cfuPrec = mercoledi.getGiocatore().getCfu();
 		mercoledi.getLabirinto().demo();
 
@@ -32,7 +32,7 @@ public class ComandoVaiTest {
 	}
 
 	@Test
-	void testDoveVuoiAndare() {
+	public void testDoveVuoiAndare() {
 		Labirinto labirinto = new LabirintoBuilder()
 				.addStanzaIniziale("LabCampusOne")
 				.getLabirinto();
@@ -43,7 +43,7 @@ public class ComandoVaiTest {
 	}
 
 	@Test
-	void testNonPuoiAndareLi() {
+	public void testNonPuoiAndareLi() {
 		Labirinto labirinto = new LabirintoBuilder()
 				.addStanzaIniziale("LabCampusOne")
 				.getLabirinto();
@@ -55,7 +55,7 @@ public class ComandoVaiTest {
 	}
 
 	@Test
-	void testLabirintoBilocale() {
+	public void testLabirintoBilocale() {
 		Labirinto labirinto = new LabirintoBuilder()
 				.addStanzaIniziale("LabCampusOne")
 				.addStanzaVincente("Biblioteca")
@@ -70,7 +70,7 @@ public class ComandoVaiTest {
 	}
 
 	@Test
-	void testLabirintoCompleto() {
+	public void testLabirintoCompleto() {
 		Labirinto labirinto = new LabirintoBuilder()
 				.addStanzaIniziale("LabCampusOne")
 				.addStanza("Biblioteca")

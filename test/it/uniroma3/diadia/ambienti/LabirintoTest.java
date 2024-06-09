@@ -18,12 +18,12 @@ public class LabirintoTest {
 	}
 
 	@Test
-	void testIsVinta() {
+	public void testIsVinta() {
 		assertTrue(martedi.isVinta());
 	}
 
 	@Test
-	void testIsFinitaPercheVinta() {
+	public void testIsFinitaPercheVinta() {
 		assertTrue(martedi.isFinita());
 	}
 }

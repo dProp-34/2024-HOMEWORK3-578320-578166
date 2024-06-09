@@ -35,52 +35,52 @@ public class BorsaTest {
 	}
 
 	@Test
-	void testGetPesoBorsaVuota() {
+	public void testGetPesoBorsaVuota() {
 		assertTrue(this.tasche.isEmpty());
 		assertTrue(this.tasche.getPeso() == 0);
 	}
 
 	@Test
-	void testGetPeso() {
+	public void testGetPeso() {
 		assertFalse(this.zaino.isEmpty());
 		assertTrue(this.zaino.getPeso() != 0);
 	}
 
 	@Test
-	void testAddAttrezzoNull() {
+	public void testAddAttrezzoNull() {
 		assertFalse(this.tasche.addAttrezzo(null));
 	}
 
 	@Test
-	void testAddAttrezzo() {
+	public void testAddAttrezzo() {
 		Attrezzo attrezzo = this.zaino.getAttrezzo("Tazzina");
 		assertNotNull(attrezzo);
 		assertEquals("Tazzina", attrezzo.getNome());
 	}
 
 	@Test
-	void testRemoveAttrezzoNull() {
+	public void testRemoveAttrezzoNull() {
 		assertNull(this.tasche.removeAttrezzo(null));
 	}
 
 	@Test
-	void testRemoveAttrezzoBorsaVuota() {
+	public void testRemoveAttrezzoBorsaVuota() {
 		assertNull(this.tasche.removeAttrezzo("1M€"));
 	}
 
 	@Test
-	void testRemoveAttrezzoInesistente() {
+	public void testRemoveAttrezzoInesistente() {
 		assertNull(this.zaino.removeAttrezzo("1M€"));
 	}
 
 	@Test
-	void testRemoveAttrezzo() {
+	public void testRemoveAttrezzo() {
 		assertNotNull(this.zaino.removeAttrezzo(this.tazzina.getNome()));
 		assertFalse(this.zaino.hasAttrezzo("Tazzina"));
 	}
 
 	@Test
-	void testGetContenutoBorsaVuota() {
+	public void testGetContenutoBorsaVuota() {
 		assertTrue(tasche.getContenutoOrdinatoPerPeso().isEmpty());
 		assertTrue(tasche.getContenutoOrdinatoPerNome().isEmpty());
 		assertTrue(tasche.getSortedSetOrdinatoPerPeso().isEmpty());
@@ -88,7 +88,7 @@ public class BorsaTest {
 	}
 
 	@Test
-	void testGetContenutoOrdinatoPerPeso() {
+	public void testGetContenutoOrdinatoPerPeso() {
 		Attrezzo cucchiaio = new Attrezzo("Cucchiaio", 1);
 		this.zaino.addAttrezzo(cucchiaio);
 		List<Attrezzo> ordinata = zaino.getContenutoOrdinatoPerPeso();
@@ -102,7 +102,7 @@ public class BorsaTest {
 	}
 
 	@Test
-	void testGetContenutoOrdinatoPerNome() {
+	public void testGetContenutoOrdinatoPerNome() {
 		this.zaino.addAttrezzo(tazzina);
 		assertTrue(this.zaino.getAttrezzi().size() == 3);
 		SortedSet<Attrezzo> ordinata = zaino.getContenutoOrdinatoPerNome();
@@ -115,7 +115,7 @@ public class BorsaTest {
 	}
 
 	@Test
-	void testGetSortedSetOrdinatoPerPeso() {
+	public void testGetSortedSetOrdinatoPerPeso() {
 		this.zaino.addAttrezzo(tazzina);
 		Attrezzo cucchiaio = new Attrezzo("Cucchiaio", 1);
 		this.zaino.addAttrezzo(cucchiaio);
@@ -132,7 +132,7 @@ public class BorsaTest {
 	}
 
 	@Test
-	void testGetContenutoRaggruppatoPerPeso() {
+	public void testGetContenutoRaggruppatoPerPeso() {
 		Attrezzo cucchiaio = new Attrezzo("Cucchiaio", 1);
 		this.zaino.addAttrezzo(cucchiaio);
 		Map<Integer, Set<Attrezzo>> ordinata = zaino.getContenutoRaggruppatoPerPeso();

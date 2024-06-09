@@ -19,7 +19,7 @@ public class GiocatoreTest {
 	}
 
 	@Test
-	void testIsFinitaPerchePersa() {
+	public void testIsFinitaPerchePersa() {
 		assertTrue(giovedi.isFinita());
 	}
 }

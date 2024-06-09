@@ -16,12 +16,12 @@ public class StanzaBuiaTest {
 	}
 
 	@Test
-	void testQuiBuioPesto() {
+	public void testQuiBuioPesto() {
 		assertEquals("Qui c'e' buio pesto.\n", buia.toString());
 	}
 
 	@Test
-	void testQuiNonBuioPesto() {
+	public void testQuiNonBuioPesto() {
 		buia.addAttrezzo(torcia);
 		assertNotEquals("Qui c'e' buio pesto.\n", buia.toString());
 	}

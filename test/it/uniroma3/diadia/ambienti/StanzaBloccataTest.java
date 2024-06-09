@@ -19,12 +19,12 @@ public class StanzaBloccataTest {
 	}
 
 	@Test
-	void testQuestUscitaSembraBloccata() {
+	public void testQuestUscitaSembraBloccata() {
 		assertEquals(bloccata, bloccata.getStanzaAdiacente("Nord"));
 	}
 
 	@Test
-	void testUscitaSbloccata() {
+	public void testUscitaSbloccata() {
 		bloccata.addAttrezzo(pieDiPorco);
 		assertEquals(nord, bloccata.getStanzaAdiacente("Nord"));
 	}
