@@ -12,18 +12,13 @@ public class Labirinto {
 	private Stanza stanzaCorrente;
 	private Stanza stanzaVincente;
 
-	public Labirinto(String nomeFile) throws FileNotFoundException, FormatoFileNonValidoException {
+	private Labirinto(String nomeFile) throws FileNotFoundException, FormatoFileNonValidoException {
 		CaricatoreLabirinto c = new CaricatoreLabirinto(nomeFile);
 		c.carica();
 		this.stanzaCorrente = c.getStanzaIniziale();
 		this.stanzaVincente = c.getStanzaVincente();
 	}
 
-	public Labirinto() {
-		this.stanzaCorrente = new Stanza();
-		this.stanzaVincente = new Stanza();
-	}
-	
 	public Stanza getStanzaCorrente() {
 		return this.stanzaCorrente;
 	}
@@ -45,7 +40,6 @@ public class Labirinto {
 	}
 
 	public static class LabirintoBuilder {
-		
 		private Labirinto labirinto;
 		private LinkedList<Stanza> listaStanze;
 
@@ -91,6 +85,14 @@ public class Labirinto {
 			return this;
 		}
 
+		public void setStanzaIniziale(String nomeStanzaIniziale) {
+			this.labirinto.setStanzaCorrente(this.get(nomeStanzaIniziale));
+		}
+
+		public void setStanzaVincente(String nomeStanzaVincente) {
+			this.labirinto.setStanzaVincente(this.get(nomeStanzaVincente));
+		}
+
 		public LabirintoBuilder addStanzaMagica(String nomeStanzaMagica, int sogliaMagica) {
 			Stanza daAggiungere = new StanzaMagica(nomeStanzaMagica, sogliaMagica);
 			this.listaStanze.add(daAggiungere);
@@ -116,6 +118,17 @@ public class Labirinto {
 			this.listaStanze.getLast().addAttrezzo(new Attrezzo(nome, peso));
 			// tiene traccia
 			return this;
+			}
+
+		public LabirintoBuilder addAdiacenza(String nomeFrom, String nomeTo, Direzione direzione) {
+			if (direzione == null)
+				return null;
+			Stanza from = this.get(nomeFrom);
+			Stanza to = this.get(nomeTo);
+			if (from != null && to != null)
+				from.setStanzaAdiacente(direzione, to);
+			// tiene traccia
+			return this;
 		}
 
 		public Stanza get(String nomeStanza) {
@@ -128,60 +141,49 @@ public class Labirinto {
 			}
 			return stanza;
 		}
-
-		public LabirintoBuilder addAdiacenza(String nomeFrom, String nomeTo, Direzione direzione) {
-			if (direzione == null)
-				return null;
-			Stanza from = this.get(nomeFrom);
-			Stanza to = this.get(nomeTo);
-			if (from != null && to != null)
-				from.setStanzaAdiacente(direzione, to);
-			// tiene traccia
-			return this;
-		}
 	}
 
-//	
-//
-//	/**
-//	 * Crea le stanze e le porte di collegamento di un
-//	 * esempio di Labirinto, senza l'utilizzo di LabirintoBuilder
-//	 */
-//	public void demo() {
-//		/* crea gli attrezzi */
-//		Attrezzo lanterna = new Attrezzo("lanterna", 3);
-//		Attrezzo osso = new Attrezzo("osso", 1);
-//
-//		/* crea le stanze del labirinto */
-//		Stanza atrio = new Stanza("Atrio");
-//		Stanza aulaN11 = new Stanza("Aula N11");
-//		Stanza aulaN10 = new Stanza("Aula N10");
-//		Stanza laboratorio = new Stanza("Laboratorio Campus");
-//		Stanza biblioteca = new Stanza("Biblioteca");
-//
-//		/* collega le stanze */
-//		atrio.setStanzaAdiacente(Direzione.valueOf("nord"), biblioteca);
-//		atrio.setStanzaAdiacente(Direzione.valueOf("est"), aulaN11);
-//		atrio.setStanzaAdiacente(Direzione.valueOf("sud"), aulaN10);
-//		atrio.setStanzaAdiacente(Direzione.valueOf("ovest"), laboratorio);
-//		aulaN11.setStanzaAdiacente(Direzione.valueOf("est"), laboratorio);
-//		aulaN11.setStanzaAdiacente(Direzione.valueOf("ovest"), atrio);
-//		aulaN10.setStanzaAdiacente(Direzione.valueOf("nord"), atrio);
-//		aulaN10.setStanzaAdiacente(Direzione.valueOf("est"), aulaN11);
-//		aulaN10.setStanzaAdiacente(Direzione.valueOf("ovest"), laboratorio);
-//		laboratorio.setStanzaAdiacente(Direzione.valueOf("est"), atrio);
-//		laboratorio.setStanzaAdiacente(Direzione.valueOf("ovest"), aulaN11);
-//		biblioteca.setStanzaAdiacente(Direzione.valueOf("sud"), atrio);
-//
-//		/* pone gli attrezzi nelle stanze */
-//		aulaN10.addAttrezzo(lanterna);
-//		atrio.addAttrezzo(osso);
-//
-//		/* il gioco comincia nell'atrio */
-//		this.setStanzaCorrente(atrio);
-//		this.setStanzaVincente(biblioteca);
-//	}
-	
-	
-	
+	/**
+	 * Crea le stanze e le porte di collegamento di un
+	 * esempio di Labirinto, senza l'utilizzo di LabirintoBuilder.
+  	 * TODO da togliere e modificare i test che ne fanno uso
+	 */
+	public Labirinto() {
+		this.demo();
+	}
+
+	public void demo() {
+		/* crea gli attrezzi */
+		Attrezzo lanterna = new Attrezzo("lanterna", 3);
+		Attrezzo osso = new Attrezzo("osso", 1);
+
+		/* crea le stanze del labirinto */
+		Stanza atrio = new Stanza("Atrio");
+		Stanza aulaN11 = new Stanza("Aula N11");
+		Stanza aulaN10 = new Stanza("Aula N10");
+		Stanza laboratorio = new Stanza("Laboratorio Campus");
+		Stanza biblioteca = new Stanza("Biblioteca");
+
+		/* collega le stanze */
+		atrio.setStanzaAdiacente(Direzione.valueOf("nord"), biblioteca);
+		atrio.setStanzaAdiacente(Direzione.valueOf("est"), aulaN11);
+		atrio.setStanzaAdiacente(Direzione.valueOf("sud"), aulaN10);
+		atrio.setStanzaAdiacente(Direzione.valueOf("ovest"), laboratorio);
+		aulaN11.setStanzaAdiacente(Direzione.valueOf("est"), laboratorio);
+		aulaN11.setStanzaAdiacente(Direzione.valueOf("ovest"), atrio);
+		aulaN10.setStanzaAdiacente(Direzione.valueOf("nord"), atrio);
+		aulaN10.setStanzaAdiacente(Direzione.valueOf("est"), aulaN11);
+		aulaN10.setStanzaAdiacente(Direzione.valueOf("ovest"), laboratorio);
+		laboratorio.setStanzaAdiacente(Direzione.valueOf("est"), atrio);
+		laboratorio.setStanzaAdiacente(Direzione.valueOf("ovest"), aulaN11);
+		biblioteca.setStanzaAdiacente(Direzione.valueOf("sud"), atrio);
+
+		/* pone gli attrezzi nelle stanze */
+		aulaN10.addAttrezzo(lanterna);
+		atrio.addAttrezzo(osso);
+
+		/* il gioco comincia nell'atrio */
+		this.setStanzaCorrente(atrio);
+		this.setStanzaVincente(biblioteca);
+	}
 }
