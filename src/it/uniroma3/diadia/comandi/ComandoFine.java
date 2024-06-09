@@ -1,11 +1,11 @@
 package it.uniroma3.diadia.comandi;
 
-import it.uniroma3.diadia.IO;
 import it.uniroma3.diadia.Partita;
 
-public class ComandoFine implements Comando {
+public class ComandoFine extends AbstractComando {
 	
-	private IO io;
+	private final String NOME = "fine";
+	
 	/**
 	 * Termina il gioco.
 	 */
@@ -14,13 +14,10 @@ public class ComandoFine implements Comando {
 		partita.setFinita();
 		return ("Grazie per aver giocato!\n");
 	}
-
-	@Override
-	public void setParametro(String parametro) { }
 	
 	@Override
-	public void setIo(IO io) {
-		// TODO Auto-generated method stub
-		this.io = io;
+	public String getNome() {
+		return this.NOME;
 	}
+		
 }
