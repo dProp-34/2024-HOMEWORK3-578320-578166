@@ -1,7 +1,6 @@
 package it.uniroma3.diadia.ambienti;
 
 import java.io.FileNotFoundException;
-import it.uniroma3.diadia.ambienti.FormatoFileNonValidoException;
 import java.util.Iterator;
 import java.util.LinkedList;
 
@@ -13,10 +12,15 @@ public class Labirinto {
 	private Stanza stanzaVincente;
 
 	private Labirinto(String nomeFile) throws FileNotFoundException, FormatoFileNonValidoException {
-		CaricatoreLabirinto c = new CaricatoreLabirinto(nomeFile);
-		c.carica();
-		this.stanzaCorrente = c.getStanzaIniziale();
-		this.stanzaVincente = c.getStanzaVincente();
+		if (nomeFile != null) {
+			CaricatoreLabirinto c = new CaricatoreLabirinto(nomeFile);
+			c.carica();
+			this.stanzaCorrente = c.getStanzaIniziale();
+			this.stanzaVincente = c.getStanzaVincente();
+		} else {
+			this.stanzaCorrente = null;
+			this.stanzaVincente = null;
+		}
 	}
 
 	public Stanza getStanzaCorrente() {
@@ -35,17 +39,18 @@ public class Labirinto {
 		this.stanzaVincente = stanzaVincente;
 	}
 
-	public static LabirintoBuilder newBuilder(String labirinto) throws FileNotFoundException, FormatoFileNonValidoException {
-		return new LabirintoBuilder(labirinto);
+	public static LabirintoBuilder newBuilder(String nomeFile)
+			throws FileNotFoundException, FormatoFileNonValidoException {
+		return new LabirintoBuilder(nomeFile);
 	}
 
 	public static class LabirintoBuilder {
 		private Labirinto labirinto;
 		private LinkedList<Stanza> listaStanze;
 
-		public LabirintoBuilder(String labirinto) throws FileNotFoundException, FormatoFileNonValidoException {
+		public LabirintoBuilder(String nomeFile) throws FileNotFoundException, FormatoFileNonValidoException {
 			this.listaStanze = new LinkedList<>();
-			this.labirinto = new Labirinto(labirinto);
+			this.labirinto = new Labirinto(nomeFile);
 		}
 
 		public Labirinto getLabirinto() {
@@ -63,7 +68,7 @@ public class Labirinto {
 		public void setListaStanze(LinkedList<Stanza> listaStanze) {
 			this.listaStanze = listaStanze;
 		}
-		
+
 		public LabirintoBuilder addStanza(String nome) {
 			if (this.get(nome) == null)
 				this.listaStanze.add(new Stanza(nome));
@@ -118,7 +123,7 @@ public class Labirinto {
 			this.listaStanze.getLast().addAttrezzo(new Attrezzo(nome, peso));
 			// tiene traccia
 			return this;
-			}
+		}
 
 		public LabirintoBuilder addAdiacenza(String nomeFrom, String nomeTo, Direzione direzione) {
 			if (direzione == null)
@@ -146,7 +151,7 @@ public class Labirinto {
 	/**
 	 * Crea le stanze e le porte di collegamento di un
 	 * esempio di Labirinto, senza l'utilizzo di LabirintoBuilder.
-  	 * TODO da togliere e modificare i test che ne fanno uso
+	 * TODO da togliere e modificare i test che ne fanno uso
 	 */
 	public Labirinto() {
 		this.demo();

@@ -1,7 +1,8 @@
 package it.uniroma3.diadia;
 
-import java.util.Scanner;
 import java.io.FileNotFoundException;
+import java.util.Scanner;
+
 import it.uniroma3.diadia.ambienti.FormatoFileNonValidoException;
 import it.uniroma3.diadia.ambienti.Labirinto;
 import it.uniroma3.diadia.comandi.Comando;
@@ -33,7 +34,7 @@ public class DiaDia {
 	public DiaDia(String nomeFile, IO io) {
 		this.io = io;
 		try {
-			this.partita = new Partita(new Labirinto(nomeFile));
+			this.partita = new Partita(Labirinto.newBuilder(nomeFile).getLabirinto());
 		} catch (FileNotFoundException e) {
 			throw new RuntimeException("Eccezione: File non trovato!");
 		} catch (FormatoFileNonValidoException e) {
@@ -124,20 +125,22 @@ public class DiaDia {
 		 */
 		IO io = new IOConsole();
 		Scanner scannerDiLinee = new Scanner(System.in);
-		/* Labirinto labirinto = new LabirintoBuilder()
-				.addStanzaIniziale("LabCampusOne")
-				.addAttrezzo("osso", 1)
-				.addStanzaVincente("Biblioteca")
-				.addAdiacenza("LabCampusOne", "Biblioteca", Direzione.valueOf("ovest"))
-				.addStanza("Aula N11")
-				.addAttrezzo("lanterna", 2)
-				.addAdiacenza("LabCampusOne", "Aula N11", Direzione.valueOf("est"))
-				.addAdiacenza("Aula N11", "LabCampusOne", Direzione.valueOf("ovest"))
-				.getLabirinto();
-		DiaDia gioco = new DiaDia(labirinto, io); */
+		/*
+		 * Labirinto labirinto = new LabirintoBuilder()
+		 * .addStanzaIniziale("LabCampusOne")
+		 * .addAttrezzo("osso", 1)
+		 * .addStanzaVincente("Biblioteca")
+		 * .addAdiacenza("LabCampusOne", "Biblioteca", Direzione.valueOf("ovest"))
+		 * .addStanza("Aula N11")
+		 * .addAttrezzo("lanterna", 2)
+		 * .addAdiacenza("LabCampusOne", "Aula N11", Direzione.valueOf("est"))
+		 * .addAdiacenza("Aula N11", "LabCampusOne", Direzione.valueOf("ovest"))
+		 * .getLabirinto();
+		 * DiaDia gioco = new DiaDia(labirinto, io);
+		 */
 		DiaDia gioco = new DiaDia("labirinto1.txt", io); // TODO leggere il labirinto da resources
 		if (gioco.partita.isFinita())
 			scannerDiLinee.close();
-    gioco.gioca(scannerDiLinee);
+		gioco.gioca(scannerDiLinee);
 	}
 }

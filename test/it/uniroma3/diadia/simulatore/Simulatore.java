@@ -1,19 +1,23 @@
 package it.uniroma3.diadia.simulatore;
 
+import java.io.FileNotFoundException;
 import java.util.List;
 import java.util.Scanner;
+
 import it.uniroma3.diadia.DiaDia;
 import it.uniroma3.diadia.IOSimulator;
+import it.uniroma3.diadia.ambienti.FormatoFileNonValidoException;
 import it.uniroma3.diadia.ambienti.Labirinto;
 import it.uniroma3.diadia.ambienti.Stanza;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 import it.uniroma3.diadia.comandi.Direzione;
 
 public class Simulatore {
-	public static IOSimulator creaSimulazionePartitaFacile(List<String> comandiDaLeggere) {
+	public static IOSimulator creaSimulazionePartitaFacile(List<String> comandiDaLeggere)
+			throws FileNotFoundException, FormatoFileNonValidoException {
 		IOSimulator io = new IOSimulator(comandiDaLeggere);
 		Scanner scannerDiLinee = new Scanner(System.in);
-		Labirinto labirinto = Labirinto.newLabirintoBuilder()
+		Labirinto labirinto = Labirinto.newBuilder(null)
 				.addStanzaIniziale("Atrio")
 				.addAttrezzo("osso", 1)
 				.addStanzaVincente("Biblioteca")
@@ -25,10 +29,11 @@ public class Simulatore {
 		return io;
 	}
 
-	public static IOSimulator creaSimulazionePartitaDifficile(List<String> comandiDaLeggere) {
+	public static IOSimulator creaSimulazionePartitaDifficile(List<String> comandiDaLeggere)
+			throws FileNotFoundException, FormatoFileNonValidoException {
 		IOSimulator io = new IOSimulator(comandiDaLeggere);
 		Scanner scannerDiLinee = new Scanner(System.in);
-		Labirinto labirinto = Labirinto.newLabirintoBuilder()
+		Labirinto labirinto = Labirinto.newBuilder(null)
 				.addStanzaIniziale("Atrio")
 				.addAttrezzo("osso", 1)
 				.addStanzaVincente("Biblioteca")
@@ -47,10 +52,11 @@ public class Simulatore {
 		return io;
 	}
 
-	public static IOSimulator creaSimulazionePartitaMonolocale(List<String> comandiDaLeggere) {
+	public static IOSimulator creaSimulazionePartitaMonolocale(List<String> comandiDaLeggere)
+			throws FileNotFoundException, FormatoFileNonValidoException {
 		IOSimulator io = new IOSimulator(comandiDaLeggere);
 		Scanner scannerDiLinee = new Scanner(System.in);
-		Labirinto monolocale = Labirinto.newLabirintoBuilder()
+		Labirinto monolocale = Labirinto.newBuilder(null)
 				.addStanzaIniziale("salotto")
 				.addStanzaVincente("salotto")
 				.getLabirinto();
@@ -59,13 +65,14 @@ public class Simulatore {
 		return io;
 	}
 
-	public static IOSimulator creaSimulazionePartitaBilocale(List<String> comandiDaLeggere) {
+	public static IOSimulator creaSimulazionePartitaBilocale(List<String> comandiDaLeggere)
+			throws FileNotFoundException, FormatoFileNonValidoException {
 		IOSimulator io = new IOSimulator(comandiDaLeggere);
 		Scanner scannerDiLinee = new Scanner(System.in);
-		Labirinto bilocale = Labirinto.newLabirintoBuilder()
+		Labirinto bilocale = Labirinto.newBuilder(null)
 				.addStanzaIniziale("salotto")
 				.addStanzaVincente("camera")
-				.addAttrezzo("letto",10) // dove? fa riferimento all’ultima stanza aggiunta
+				.addAttrezzo("letto", 10) // dove? fa riferimento all’ultima stanza aggiunta
 				.addAdiacenza("salotto", "camera", Direzione.ovest) // camera si trova a nord di salotto
 				.getLabirinto();
 		DiaDia gioco = new DiaDia(bilocale, io);
@@ -73,10 +80,11 @@ public class Simulatore {
 		return io;
 	}
 
-	public static IOSimulator creaSimulazionePartitaTrilocale(List<String> comandiDaLeggere) {
+	public static IOSimulator creaSimulazionePartitaTrilocale(List<String> comandiDaLeggere)
+			throws FileNotFoundException, FormatoFileNonValidoException {
 		IOSimulator io = new IOSimulator(comandiDaLeggere);
 		Scanner scannerDiLinee = new Scanner(System.in);
-		Labirinto trilocale = Labirinto.newLabirintoBuilder()
+		Labirinto trilocale = Labirinto.newBuilder(null)
 				.addStanzaIniziale("salotto")
 				.addStanza("cucina")
 				.addAttrezzo("pentola", 1) // dove? fa riferimento all’ultima stanza aggiunta

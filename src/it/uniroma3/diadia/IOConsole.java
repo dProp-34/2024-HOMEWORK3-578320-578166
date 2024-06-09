@@ -12,9 +12,9 @@ public class IOConsole implements IO {
 	}
 
 	public String leggiRiga(Scanner scannerDiLinee) {
-//		Scanner scannerDiLinee = new Scanner(System.in);
+		// Scanner scannerDiLinee = new Scanner(System.in);
 		String riga = scannerDiLinee.nextLine();
-		//scannerDiLinee.close();
+		// scannerDiLinee.close();
 		return riga;
 	}
 }
