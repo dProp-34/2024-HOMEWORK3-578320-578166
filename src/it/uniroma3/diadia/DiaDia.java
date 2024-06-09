@@ -1,7 +1,7 @@
 package it.uniroma3.diadia;
 
+import java.util.Scanner;
 import java.io.FileNotFoundException;
-
 import it.uniroma3.diadia.ambienti.FormatoFileNonValidoException;
 import it.uniroma3.diadia.ambienti.Labirinto;
 import it.uniroma3.diadia.comandi.Comando;
@@ -66,11 +66,11 @@ public class DiaDia {
 	 * }
 	 */
 
-	public void gioca() {
+	public void gioca(Scanner scannerDiLinee) {
 		String istruzione;
 		io.mostraMessaggio(MESSAGGIO_BENVENUTO);
 		do {
-			istruzione = io.leggiRiga();
+			istruzione = io.leggiRiga(scannerDiLinee);
 		} while (!processaIstruzione(istruzione));
 	}
 
@@ -123,20 +123,23 @@ public class DiaDia {
 		/*
 		 * N.B. unica istanza di IOConsole
 		 * di cui sia ammessa la creazione
-		 * 
-		 * Labirinto labirinto = new LabirintoBuilder()
-		 * .addStanzaIniziale("LabCampusOne")
-		 * .addAttrezzo("osso", 1)
-		 * .addStanzaVincente("Biblioteca")
-		 * .addAdiacenza("LabCampusOne", "Biblioteca", "ovest")
-		 * .addStanza("Aula N11")
-		 * .addAttrezzo("lanterna", 2)
-		 * .addAdiacenza("LabCampusOne", "Aula N11", "est")
-		 * .addAdiacenza("Aula N11", "LabCampusOne", "ovest")
-		 * .getLabirinto();
 		 */
 		IO io = new IOConsole();
+		Scanner scannerDiLinee = new Scanner(System.in);
+		/* Labirinto labirinto = new LabirintoBuilder()
+				.addStanzaIniziale("LabCampusOne")
+				.addAttrezzo("osso", 1)
+				.addStanzaVincente("Biblioteca")
+				.addAdiacenza("LabCampusOne", "Biblioteca", Direzione.valueOf("ovest"))
+				.addStanza("Aula N11")
+				.addAttrezzo("lanterna", 2)
+				.addAdiacenza("LabCampusOne", "Aula N11", Direzione.valueOf("est"))
+				.addAdiacenza("Aula N11", "LabCampusOne", Direzione.valueOf("ovest"))
+				.getLabirinto();
+		DiaDia gioco = new DiaDia(labirinto, io); */
 		DiaDia gioco = new DiaDia("labirinto1.txt", io); // TODO leggere il labirinto da resources
-		gioco.gioca();
+		if (gioco.partita.isFinita())
+			scannerDiLinee.close();
+    gioco.gioca(scannerDiLinee);
 	}
 }
