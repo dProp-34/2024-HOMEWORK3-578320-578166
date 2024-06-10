@@ -8,6 +8,7 @@ import java.util.Map;
 
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 import it.uniroma3.diadia.comandi.Direzione;
+import it.uniroma3.diadia.personaggi.AbstractPersonaggio;
 
 /**
  * Questa classe modella una stanza nel gioco di ruolo.
@@ -24,7 +25,9 @@ public class Stanza {
 	private String nome;
 	private List<Attrezzo> attrezzi;
 	private Map<Direzione, Stanza> stanzeAdiacenti;
+	private AbstractPersonaggio personaggio;
 
+	
 	/**
 	 * Crea una stanza, senza attrezzi ne' stanze adiacenti.
 	 *
@@ -189,6 +192,14 @@ public class Stanza {
 		return this.attrezzi.remove(myAttrezzo);
 	}
 
+	public void setPersonaggio(AbstractPersonaggio personaggio) {
+		this.personaggio = personaggio;
+	}
+	
+	public AbstractPersonaggio getPersonaggio() {
+		return this.personaggio;
+	}
+	
 	/**
 	 * Restituisce una rappresentazione stringa di questa stanza,
 	 * stampadone la descrizione, le uscite e gli eventuali attrezzi contenuti.
