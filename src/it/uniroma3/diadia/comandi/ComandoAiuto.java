@@ -9,7 +9,6 @@ import it.uniroma3.diadia.Partita;
 
 public class ComandoAiuto extends AbstractComando {
 	static final private String[] ELENCO_COMANDI = { "vai", "prendi", "posa", "guarda", "aiuto", "fine", "saluta", "regala", "interagisci" };
-	
 	private final String NOME = "aiuto";
 
 	/**
@@ -17,14 +16,12 @@ public class ComandoAiuto extends AbstractComando {
 	 */
 	@Override
 	public String esegui(Partita partita) {
-		
 		StringBuilder out = new StringBuilder();
 		for (String s : ComandoAiuto.ELENCO_COMANDI)
 			out.append(s + " ");
 		out.append("\n" + partita.getGiocatore().getBorsa().toString() +
 				"\nCFU Rimanenti: " + partita.getGiocatore().getCfu());
 		return out.toString();
-		
 		/*
 		 * StringBuilder out = new StringBuilder();
 		List<String> nomiComandi = recuperaNomiComandi();
@@ -33,7 +30,6 @@ public class ComandoAiuto extends AbstractComando {
 		return out.toString();
 		*/
 	}
-	
 
 	@Override
 	public String getNome() {
