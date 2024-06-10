@@ -20,7 +20,7 @@ public class PartitaTestSim {
 
 	@Before
 	public void setUp() throws FileNotFoundException, FormatoFileNonValidoException {
-		labirinto = new Labirinto.LabirintoBuilder(null)
+		labirinto = new Labirinto.LabirintoBuilder()
 				.addStanzaIniziale("Atrio")
 				.addAttrezzo("Ascia", 3)
 				.addStanzaVincente("Biblioteca")

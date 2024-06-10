@@ -24,7 +24,7 @@ public class LabirintoBuilderTest {
 
 	@Before
 	public void setUp() throws Exception {
-		labirintoBuilder = Labirinto.newBuilder(null);
+		labirintoBuilder = Labirinto.newBuilder();
 	}
 
 	@Test

@@ -18,24 +18,13 @@ public class ComandoVaiTest {
 
 	@BeforeEach
 	void setUp() {
-		mercoledi = new Partita();
+		mercoledi = new Partita(Labirinto.newBuilder().getLabirinto());
 		primo = new ComandoVai();
 	}
 
 	@Test
-	public void testEseguiVai() {
-		int cfuPrec = mercoledi.getGiocatore().getCfu();
-		mercoledi.getLabirinto().demo();
-
-		primo.setParametro("nord");
-		primo.esegui(mercoledi);
-		assertEquals("Biblioteca", mercoledi.getLabirinto().getStanzaCorrente().getNome());
-		assertTrue(mercoledi.getGiocatore().getCfu() < cfuPrec);
-	}
-
-	@Test
 	public void testDoveVuoiAndare() throws FileNotFoundException, FormatoFileNonValidoException {
-		Labirinto labirinto = Labirinto.newBuilder(null)
+		Labirinto labirinto = Labirinto.newBuilder()
 				.addStanzaIniziale("LabCampusOne")
 				.getLabirinto();
 		mercoledi.setLabirinto(labirinto);
@@ -46,7 +35,7 @@ public class ComandoVaiTest {
 
 	@Test
 	public void testNonPuoiAndareLi() throws FileNotFoundException, FormatoFileNonValidoException {
-		Labirinto labirinto = Labirinto.newBuilder(null)
+		Labirinto labirinto = Labirinto.newBuilder()
 				.addStanzaIniziale("LabCampusOne")
 				.getLabirinto();
 		mercoledi.setLabirinto(labirinto);
@@ -58,7 +47,8 @@ public class ComandoVaiTest {
 
 	@Test
 	public void testLabirintoBilocale() throws FileNotFoundException, FormatoFileNonValidoException {
-		Labirinto labirinto = Labirinto.newBuilder(null)
+		int cfuPrec = mercoledi.getGiocatore().getCfu();
+		Labirinto labirinto = Labirinto.newBuilder()
 				.addStanzaIniziale("LabCampusOne")
 				.addStanzaVincente("Biblioteca")
 				.addAdiacenza("LabCampusOne", "Biblioteca", Direzione.ovest)
@@ -68,12 +58,13 @@ public class ComandoVaiTest {
 		primo.setParametro("ovest");
 		primo.esegui(mercoledi);
 		assertEquals("Biblioteca", mercoledi.getLabirinto().getStanzaCorrente().getNome());
+		assertTrue(mercoledi.getGiocatore().getCfu() < cfuPrec);
 		assertTrue(mercoledi.isVinta());
 	}
 
 	@Test
 	public void testLabirintoCompleto() throws FileNotFoundException, FormatoFileNonValidoException {
-		Labirinto labirinto = Labirinto.newBuilder(null)
+		Labirinto labirinto = Labirinto.newBuilder()
 				.addStanzaIniziale("LabCampusOne")
 				.addStanza("Biblioteca")
 				.addAdiacenza("LabCampusOne", "Biblioteca", Direzione.ovest)

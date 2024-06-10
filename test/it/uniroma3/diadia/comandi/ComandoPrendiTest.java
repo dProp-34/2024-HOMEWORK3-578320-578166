@@ -1,21 +1,25 @@
 package it.uniroma3.diadia.comandi;
 
-import it.uniroma3.diadia.Partita;
-import it.uniroma3.diadia.attrezzi.Attrezzo;
+import static org.junit.Assert.assertEquals;
 
-import static org.junit.Assert.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import it.uniroma3.diadia.Partita;
+import it.uniroma3.diadia.ambienti.Labirinto;
+import it.uniroma3.diadia.attrezzi.Attrezzo;
 
 public class ComandoPrendiTest {
 	private Attrezzo chiavi;
 	private Partita martedi;
 	private ComandoPrendi primo;
+	private Labirinto monolocale;
 
 	@BeforeEach
 	public void setUp() {
 		chiavi = new Attrezzo("Chiavi", 1);
-		martedi = new Partita();
+		monolocale = Labirinto.newBuilder().addStanzaIniziale("Corrente").getLabirinto();
+		martedi = new Partita(monolocale);
 		martedi.getLabirinto().getStanzaCorrente().addAttrezzo(chiavi);
 		primo = new ComandoPrendi();
 	}

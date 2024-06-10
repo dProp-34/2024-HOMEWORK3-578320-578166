@@ -29,6 +29,7 @@ public class CaricatoreLabirinto {
 	 * formato <nomeStanzaDa> <direzione> <nomeStanzaA>
 	 */
 	private static final String USCITE_MARKER = "Uscite:";
+
 	/*
 	 * Esempio di un possibile file di specifica di un labirinto (vedi
 	 * POO-26-eccezioni-file.pdf)
@@ -38,24 +39,23 @@ public class CaricatoreLabirinto {
 	 * Vincente: N11
 	 * Attrezzi: martello 10 biblioteca, pinza 2 N10
 	 * Uscite: biblioteca nord N10, biblioteca sud N11
-	 * 
 	 */
 	private LineNumberReader reader;
 	private Labirinto.LabirintoBuilder builder;
 
 	public CaricatoreLabirinto(String nomeFile) throws FileNotFoundException, FormatoFileNonValidoException {
-		this.builder = Labirinto.newBuilder(nomeFile);
+		this.builder = Labirinto.newBuilder();
 		this.reader = new LineNumberReader(new FileReader(nomeFile));
 	}
 
 	public CaricatoreLabirinto(StringReader fixtureFile) throws FileNotFoundException, FormatoFileNonValidoException {
-		this.builder = Labirinto.newBuilder(null);
+		this.builder = Labirinto.newBuilder();
 		this.reader = new LineNumberReader(fixtureFile);
 	}
 
 	public void carica() throws FormatoFileNonValidoException {
 		try {
-			reader.mark(524288); // Impone un limite ai file Labirinto da caricare di ~1MB
+			reader.mark(1000000); // Impone un limite ai file Labirinto da caricare di ~1MB
 			this.leggiECreaStanze();
 			this.leggiInizialeEvincente();
 			this.leggiECollocaAttrezzi();

@@ -28,27 +28,32 @@ public class DiaDia {
 			"puoi raccoglierli, usarli, posarli quando ti sembrano inutili\n" +
 			"o regalarli se pensi che possano ingraziarti qualcuno.\n\n" +
 			"Per conoscere le istruzioni usa il comando 'aiuto'.";
+	private static final String LABIRINTO_DEFAULT = "labirinto_default.txt";
+
 	private Partita partita;
 	private IO io;
 
-	public DiaDia(String nomeFile, IO io) {
+	public DiaDia(IO io) {
 		this.io = io;
 		try {
-			this.partita = new Partita(Labirinto.newBuilder(nomeFile).getLabirinto());
+			CaricatoreProprieta caricatore = new CaricatoreProprieta();
+			String labirintoInUso = caricatore.caricaLabirinto();
+			this.partita = new Partita(Labirinto.newBuilder(labirintoInUso).getLabirinto());
 		} catch (FileNotFoundException e) {
-			throw new RuntimeException("Eccezione: File non trovato!");
+			try {
+				io.mostraMessaggio("Labirinto non trovato, carico " + LABIRINTO_DEFAULT); // TODO da togliere
+				this.partita = new Partita(Labirinto.newBuilder(LABIRINTO_DEFAULT).getLabirinto());
+			} catch (FileNotFoundException | FormatoFileNonValidoException e1) {
+				throw new RuntimeException(LABIRINTO_DEFAULT + " non trovato!");
+			}
 		} catch (FormatoFileNonValidoException e) {
-			throw new RuntimeException("Eccezione: Formato file non valido!");
+			throw new RuntimeException("Formato labirinto non valido!");
 		}
 	}
 
 	public DiaDia(Labirinto labirinto, IO io) {
 		this.partita = new Partita(labirinto);
 		this.io = io;
-	}
-
-	public DiaDia(IO io) {
-		this(new Labirinto(), io);
 	}
 
 	/*
@@ -138,7 +143,7 @@ public class DiaDia {
 		 * .getLabirinto();
 		 * DiaDia gioco = new DiaDia(labirinto, io);
 		 */
-		DiaDia gioco = new DiaDia("labirinto1.txt", io); // TODO leggere il labirinto da resources
+		DiaDia gioco = new DiaDia(io);
 		if (gioco.partita.isFinita())
 			scannerDiLinee.close();
 		gioco.gioca(scannerDiLinee);

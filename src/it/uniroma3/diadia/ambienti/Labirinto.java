@@ -12,15 +12,15 @@ public class Labirinto {
 	private Stanza stanzaVincente;
 
 	private Labirinto(String nomeFile) throws FileNotFoundException, FormatoFileNonValidoException {
-		if (nomeFile != null) {
-			CaricatoreLabirinto c = new CaricatoreLabirinto(nomeFile);
-			c.carica();
-			this.stanzaCorrente = c.getStanzaIniziale();
-			this.stanzaVincente = c.getStanzaVincente();
-		} else {
-			this.stanzaCorrente = null;
-			this.stanzaVincente = null;
-		}
+		CaricatoreLabirinto c = new CaricatoreLabirinto(nomeFile);
+		c.carica();
+		this.stanzaCorrente = c.getStanzaIniziale();
+		this.stanzaVincente = c.getStanzaVincente();
+	}
+
+	private Labirinto() {
+		this.stanzaCorrente = null;
+		this.stanzaVincente = null;
 	}
 
 	public Stanza getStanzaCorrente() {
@@ -39,6 +39,10 @@ public class Labirinto {
 		this.stanzaVincente = stanzaVincente;
 	}
 
+	public static LabirintoBuilder newBuilder() {
+		return new LabirintoBuilder();
+	}
+
 	public static LabirintoBuilder newBuilder(String nomeFile)
 			throws FileNotFoundException, FormatoFileNonValidoException {
 		return new LabirintoBuilder(nomeFile);
@@ -47,6 +51,11 @@ public class Labirinto {
 	public static class LabirintoBuilder {
 		private Labirinto labirinto;
 		private LinkedList<Stanza> listaStanze;
+
+		public LabirintoBuilder() {
+			this.listaStanze = new LinkedList<>();
+			this.labirinto = new Labirinto();
+		}
 
 		public LabirintoBuilder(String nomeFile) throws FileNotFoundException, FormatoFileNonValidoException {
 			this.listaStanze = new LinkedList<>();
@@ -153,10 +162,6 @@ public class Labirinto {
 	 * esempio di Labirinto, senza l'utilizzo di LabirintoBuilder.
 	 * TODO da togliere e modificare i test che ne fanno uso
 	 */
-	public Labirinto() {
-		this.demo();
-	}
-
 	public void demo() {
 		/* crea gli attrezzi */
 		Attrezzo lanterna = new Attrezzo("lanterna", 3);

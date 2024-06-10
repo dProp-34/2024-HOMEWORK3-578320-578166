@@ -17,7 +17,7 @@ public class Simulatore {
 			throws FileNotFoundException, FormatoFileNonValidoException {
 		IOSimulator io = new IOSimulator(comandiDaLeggere);
 		Scanner scannerDiLinee = new Scanner(System.in);
-		Labirinto labirinto = Labirinto.newBuilder(null)
+		Labirinto labirinto = Labirinto.newBuilder()
 				.addStanzaIniziale("Atrio")
 				.addAttrezzo("osso", 1)
 				.addStanzaVincente("Biblioteca")
@@ -33,7 +33,7 @@ public class Simulatore {
 			throws FileNotFoundException, FormatoFileNonValidoException {
 		IOSimulator io = new IOSimulator(comandiDaLeggere);
 		Scanner scannerDiLinee = new Scanner(System.in);
-		Labirinto labirinto = Labirinto.newBuilder(null)
+		Labirinto labirinto = Labirinto.newBuilder()
 				.addStanzaIniziale("Atrio")
 				.addAttrezzo("osso", 1)
 				.addStanzaVincente("Biblioteca")
@@ -56,7 +56,7 @@ public class Simulatore {
 			throws FileNotFoundException, FormatoFileNonValidoException {
 		IOSimulator io = new IOSimulator(comandiDaLeggere);
 		Scanner scannerDiLinee = new Scanner(System.in);
-		Labirinto monolocale = Labirinto.newBuilder(null)
+		Labirinto monolocale = Labirinto.newBuilder()
 				.addStanzaIniziale("salotto")
 				.addStanzaVincente("salotto")
 				.getLabirinto();
@@ -69,7 +69,7 @@ public class Simulatore {
 			throws FileNotFoundException, FormatoFileNonValidoException {
 		IOSimulator io = new IOSimulator(comandiDaLeggere);
 		Scanner scannerDiLinee = new Scanner(System.in);
-		Labirinto bilocale = Labirinto.newBuilder(null)
+		Labirinto bilocale = Labirinto.newBuilder()
 				.addStanzaIniziale("salotto")
 				.addStanzaVincente("camera")
 				.addAttrezzo("letto", 10) // dove? fa riferimento all’ultima stanza aggiunta
@@ -84,7 +84,7 @@ public class Simulatore {
 			throws FileNotFoundException, FormatoFileNonValidoException {
 		IOSimulator io = new IOSimulator(comandiDaLeggere);
 		Scanner scannerDiLinee = new Scanner(System.in);
-		Labirinto trilocale = Labirinto.newBuilder(null)
+		Labirinto trilocale = Labirinto.newBuilder()
 				.addStanzaIniziale("salotto")
 				.addStanza("cucina")
 				.addAttrezzo("pentola", 1) // dove? fa riferimento all’ultima stanza aggiunta

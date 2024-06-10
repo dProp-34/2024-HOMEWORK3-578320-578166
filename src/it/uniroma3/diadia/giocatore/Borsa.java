@@ -1,5 +1,6 @@
 package it.uniroma3.diadia.giocatore;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -11,22 +12,33 @@ import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+import it.uniroma3.diadia.CaricatoreProprieta;
+import it.uniroma3.diadia.ambienti.FormatoFileNonValidoException;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 import it.uniroma3.diadia.attrezzi.ComparatorePerPeso;
 
 public class Borsa {
-	public final static int PESO_MAX_BORSA = 10;
+	static final private int PESO_MAX_DEFAULT = 20;
 
 	private List<Attrezzo> attrezzi;
 	private int pesoMax;
 
 	public Borsa() {
-		this(PESO_MAX_BORSA);
-	}
-
-	public Borsa(int pesoMax) {
-		this.pesoMax = pesoMax;
 		this.attrezzi = new ArrayList<Attrezzo>();
+		try {
+			CaricatoreProprieta caricatore = new CaricatoreProprieta();
+			// String labirintoInUso = caricatore.caricaLabirinto();
+			this.pesoMax = caricatore.caricaPesoMax();
+		} catch (FileNotFoundException e) {
+			// try {
+			// io.mostraMessaggio("Labirinto non trovato, carico " + LABIRINTO_DEFAULT); //
+			this.pesoMax = PESO_MAX_DEFAULT;
+			// } catch (FileNotFoundException | FormatoFileNonValidoException e1) {
+			// throw new RuntimeException(LABIRINTO_DEFAULT + "non trovato!");
+			// }
+		} catch (FormatoFileNonValidoException e) {
+			throw new RuntimeException("Formato properties non valido!");
+		}
 	}
 
 	public List<Attrezzo> getAttrezzi() {
@@ -153,10 +165,12 @@ public class Borsa {
 	public String toString() {
 		StringBuilder risultato = new StringBuilder();
 		risultato.append("Borsa(" + this.getPeso() + "kg / " + this.getPesoMax() + "kg): ");
-		/* for (Attrezzo attrezzo : this.getContenutoOrdinatoPerNome()) {
-			if (attrezzo != null)
-				risultato.append(" " + attrezzo.toString());
-		} */
+		/*
+		 * for (Attrezzo attrezzo : this.getContenutoOrdinatoPerNome()) {
+		 * if (attrezzo != null)
+		 * risultato.append(" " + attrezzo.toString());
+		 * }
+		 */
 		risultato.append(this.getContenutoOrdinatoPerNome());
 		return risultato.toString();
 	}
