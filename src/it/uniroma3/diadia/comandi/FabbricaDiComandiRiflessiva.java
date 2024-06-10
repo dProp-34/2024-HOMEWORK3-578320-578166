@@ -4,7 +4,9 @@ import java.util.Scanner;
 
 @SuppressWarnings("resource")
 public class FabbricaDiComandiRiflessiva implements FabbricaDiComandi {
-	public Comando costruisciComando(String istruzione) {
+	
+	public Comando costruisciComando(String istruzione) throws Exception {
+		
 		Scanner scannerDiParole = new Scanner(istruzione); // es. ‘vai sud’
 		String nomeComando = null; // es. ‘vai’
 		String parametro = null; // es. ‘sud’
@@ -25,6 +27,7 @@ public class FabbricaDiComandiRiflessiva implements FabbricaDiComandi {
 			throw new RuntimeException(e.getMessage());
 		}
 		comando.setParametro(parametro);
+		
 		return comando;
 	}
 }
