@@ -6,6 +6,9 @@ import java.util.LinkedList;
 
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 import it.uniroma3.diadia.comandi.Direzione;
+import it.uniroma3.diadia.personaggi.Cane;
+import it.uniroma3.diadia.personaggi.Mago;
+import it.uniroma3.diadia.personaggi.Strega;
 
 public class Labirinto {
 	private Stanza stanzaCorrente;
@@ -154,6 +157,21 @@ public class Labirinto {
 					stanza = s;
 			}
 			return stanza;
+		}
+		
+		public LabirintoBuilder addMago(String nome, String presentazione, Attrezzo attrezzo) {
+			this.listaStanze.getLast().setPersonaggio(new Mago(nome, presentazione, attrezzo));
+			return this;
+		}
+		
+		public LabirintoBuilder addCane(String nome, String presentazione) {
+			this.listaStanze.getLast().setPersonaggio(new Cane(nome, presentazione));
+			return this;
+		}
+		
+		public LabirintoBuilder addStrega(String nome, String presentazione) {
+			this.listaStanze.getLast().setPersonaggio(new Strega(nome, presentazione));
+			return this;
 		}
 	}
 
