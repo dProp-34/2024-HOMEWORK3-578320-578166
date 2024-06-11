@@ -4,8 +4,10 @@ import java.io.FileNotFoundException;
 import java.util.Iterator;
 import java.util.LinkedList;
 
+import it.uniroma3.diadia.Direzione;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
-import it.uniroma3.diadia.comandi.Direzione;
+import it.uniroma3.diadia.ios.CaricatoreLabirinto;
+import it.uniroma3.diadia.ios.FormatoFileNonValidoException;
 import it.uniroma3.diadia.personaggi.Cane;
 import it.uniroma3.diadia.personaggi.Mago;
 import it.uniroma3.diadia.personaggi.Strega;

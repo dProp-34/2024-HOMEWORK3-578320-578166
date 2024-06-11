@@ -1,6 +1,7 @@
 package it.uniroma3.diadia.comandi;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -8,6 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import it.uniroma3.diadia.Partita;
 import it.uniroma3.diadia.ambienti.Labirinto;
+import it.uniroma3.diadia.ambienti.Stanza;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 
 public class ComandoPosaTest {
@@ -29,7 +31,11 @@ public class ComandoPosaTest {
 	public void testEseguiPosa() {
 		primo.setParametro("Chiavi");
 		primo.esegui(lunedi);
-		assertEquals(chiavi, lunedi.getLabirinto().getStanzaCorrente().getAttrezzo("Chiavi"));
+		Labirinto labirinto = lunedi.getLabirinto();
+		assertNotNull(labirinto);
+		Stanza stanzaCorrente = labirinto.getStanzaCorrente();
+		assertNotNull(stanzaCorrente);
+		assertEquals(chiavi, stanzaCorrente.getAttrezzo("Chiavi"));
 	}
 
 	@Test

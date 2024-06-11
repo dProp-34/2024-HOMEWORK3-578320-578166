@@ -1,5 +1,4 @@
-
-package it.uniroma3.diadia.ambienti;
+package it.uniroma3.diadia.ios;
 
 public class FormatoFileNonValidoException extends Exception {
 	private static final long serialVersionUID = 1L;

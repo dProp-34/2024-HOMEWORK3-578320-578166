@@ -1,12 +1,17 @@
 package it.uniroma3.diadia;
 
 import java.io.FileNotFoundException;
+import java.io.StringReader;
 import java.util.Scanner;
 
-import it.uniroma3.diadia.ambienti.FormatoFileNonValidoException;
 import it.uniroma3.diadia.ambienti.Labirinto;
 import it.uniroma3.diadia.comandi.Comando;
 import it.uniroma3.diadia.comandi.FabbricaDiComandiFisarmonica;
+import it.uniroma3.diadia.ios.CaricatoreLabirinto;
+import it.uniroma3.diadia.ios.CaricatoreProprieta;
+import it.uniroma3.diadia.ios.FormatoFileNonValidoException;
+import it.uniroma3.diadia.ios.IO;
+import it.uniroma3.diadia.ios.IOConsole;
 
 /**
  * Classe principale di diadia, un semplice gioco di ruolo ambientato al dia.
@@ -19,8 +24,7 @@ import it.uniroma3.diadia.comandi.FabbricaDiComandiFisarmonica;
  * @version base
  */
 public class DiaDia {
-	static final private String MESSAGGIO_BENVENUTO = "" +
-			"Ti trovi nell'Universita', ma oggi e' diversa dal solito...\n" +
+	static final private String MESSAGGIO_BENVENUTO = "Ti trovi nell'Universita', ma oggi e' diversa dal solito...\n" +
 			"Meglio andare al piu' presto in biblioteca a studiare. Ma dov'e'?\n" +
 			"I locali sono popolati da strani personaggi, " +
 			"alcuni amici, altri... chissa!\n" +
@@ -28,7 +32,11 @@ public class DiaDia {
 			"puoi raccoglierli, usarli, posarli quando ti sembrano inutili\n" +
 			"o regalarli se pensi che possano ingraziarti qualcuno.\n\n" +
 			"Per conoscere le istruzioni usa il comando 'aiuto'.";
-	private static final String LABIRINTO_DEFAULT = "resources/labirinto_default.txt";
+	static final private String LABIRINTO_DEFAULT = "Stanze: biblioteca, N10, N11\n" +
+			"Inizio: N10\n" +
+			"Vincente: N11\n" +
+			"Attrezzi: martello 10 biblioteca, pinza 2 N10\n" +
+			"Uscite: biblioteca nord N10, biblioteca sud N11";
 
 	private Partita partita;
 	private IO io;
@@ -42,8 +50,11 @@ public class DiaDia {
 			this.partita = new Partita(Labirinto.newBuilder(labirintoInUso).getLabirinto());
 		} catch (FileNotFoundException e) {
 			try {
-				io.mostraMessaggio("Labirinto non trovato, carico " + LABIRINTO_DEFAULT); // TODO da togliere
-				this.partita = new Partita(Labirinto.newBuilder(LABIRINTO_DEFAULT).getLabirinto());
+				io.mostraMessaggio("Labirinto non trovato, carico il labirinto di default"); // TODO da togliere
+				CaricatoreLabirinto caricatore = new CaricatoreLabirinto(new StringReader(LABIRINTO_DEFAULT));
+				caricatore.carica();
+				Labirinto labirinto = caricatore.getBuilder().getLabirinto();
+				this.partita = new Partita(labirinto);
 			} catch (FileNotFoundException | FormatoFileNonValidoException e1) {
 				throw new RuntimeException(LABIRINTO_DEFAULT + " non trovato!");
 			}

@@ -1,7 +1,7 @@
 package it.uniroma3.diadia.ambienti;
 
+import it.uniroma3.diadia.Direzione;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
-import it.uniroma3.diadia.comandi.Direzione;
 
 public class StanzaBloccata extends Stanza {
 	private Direzione direzioneBloccata;

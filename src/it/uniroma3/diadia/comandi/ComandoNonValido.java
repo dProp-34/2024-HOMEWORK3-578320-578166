@@ -3,7 +3,6 @@ package it.uniroma3.diadia.comandi;
 import it.uniroma3.diadia.Partita;
 
 public class ComandoNonValido extends AbstractComando {
-	
 	private final String NOME = "ComandoNonValido";
 
 	/**
@@ -18,5 +17,4 @@ public class ComandoNonValido extends AbstractComando {
 	public String getNome() {
 		return this.NOME;
 	}
-	
 }

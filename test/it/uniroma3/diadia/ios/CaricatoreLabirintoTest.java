@@ -1,4 +1,4 @@
-package it.uniroma3.diadia.ambienti;
+package it.uniroma3.diadia.ios;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -9,8 +9,9 @@ import java.util.Collections;
 
 import org.junit.jupiter.api.Test;
 
+import it.uniroma3.diadia.Direzione;
+import it.uniroma3.diadia.ambienti.Labirinto;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
-import it.uniroma3.diadia.comandi.Direzione;
 
 public class CaricatoreLabirintoTest {
 	private String nomeStanzaIniziale = "Atrio";

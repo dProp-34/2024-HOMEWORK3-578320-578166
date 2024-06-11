@@ -3,9 +3,8 @@ package it.uniroma3.diadia.comandi;
 import it.uniroma3.diadia.Partita;
 
 public class ComandoFine extends AbstractComando {
-	
 	private final String NOME = "fine";
-	
+
 	/**
 	 * Termina il gioco.
 	 */
@@ -14,10 +13,9 @@ public class ComandoFine extends AbstractComando {
 		partita.setFinita();
 		return ("Grazie per aver giocato!\n");
 	}
-	
+
 	@Override
 	public String getNome() {
 		return this.NOME;
 	}
-		
 }

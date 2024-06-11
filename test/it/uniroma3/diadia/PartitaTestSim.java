@@ -1,24 +1,23 @@
 package it.uniroma3.diadia;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import java.io.FileNotFoundException;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import it.uniroma3.diadia.ambienti.FormatoFileNonValidoException;
 import it.uniroma3.diadia.ambienti.Labirinto;
 import it.uniroma3.diadia.ambienti.Stanza;
-import it.uniroma3.diadia.comandi.Direzione;
+import it.uniroma3.diadia.ios.FormatoFileNonValidoException;
 
 public class PartitaTestSim {
 	Labirinto labirinto;
 	Partita p;
 	Stanza s;
 
-	@Before
+	@BeforeEach
 	public void setUp() throws FileNotFoundException, FormatoFileNonValidoException {
 		labirinto = new Labirinto.LabirintoBuilder()
 				.addStanzaIniziale("Atrio")

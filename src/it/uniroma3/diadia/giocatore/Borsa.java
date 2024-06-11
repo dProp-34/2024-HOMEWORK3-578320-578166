@@ -12,10 +12,10 @@ import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-import it.uniroma3.diadia.CaricatoreProprieta;
-import it.uniroma3.diadia.ambienti.FormatoFileNonValidoException;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 import it.uniroma3.diadia.attrezzi.ComparatorePerPeso;
+import it.uniroma3.diadia.ios.CaricatoreProprieta;
+import it.uniroma3.diadia.ios.FormatoFileNonValidoException;
 
 public class Borsa {
 	static final private int PESO_MAX_DEFAULT = 20;
@@ -27,17 +27,11 @@ public class Borsa {
 		this.attrezzi = new ArrayList<Attrezzo>();
 		try {
 			CaricatoreProprieta caricatore = new CaricatoreProprieta();
-			// String labirintoInUso = caricatore.caricaLabirinto();
 			this.pesoMax = caricatore.caricaPesoMax();
 		} catch (FileNotFoundException e) {
-			// try {
-			// io.mostraMessaggio("Labirinto non trovato, carico " + LABIRINTO_DEFAULT); //
 			this.pesoMax = PESO_MAX_DEFAULT;
-			// } catch (FileNotFoundException | FormatoFileNonValidoException e1) {
-			// throw new RuntimeException(LABIRINTO_DEFAULT + "non trovato!");
-			// }
 		} catch (FormatoFileNonValidoException e) {
-			throw new RuntimeException("Formato properties non valido!");
+			throw new RuntimeException("Formato Proprieta non valido!");
 		}
 	}
 

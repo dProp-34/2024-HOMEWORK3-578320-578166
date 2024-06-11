@@ -8,9 +8,10 @@ import java.io.FileNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import it.uniroma3.diadia.Direzione;
 import it.uniroma3.diadia.Partita;
-import it.uniroma3.diadia.ambienti.FormatoFileNonValidoException;
 import it.uniroma3.diadia.ambienti.Labirinto;
+import it.uniroma3.diadia.ios.FormatoFileNonValidoException;
 
 public class ComandoVaiTest {
 	private Partita mercoledi;

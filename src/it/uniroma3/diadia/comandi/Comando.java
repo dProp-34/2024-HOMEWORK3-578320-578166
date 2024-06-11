@@ -1,7 +1,7 @@
 package it.uniroma3.diadia.comandi;
 
-import it.uniroma3.diadia.IO;
 import it.uniroma3.diadia.Partita;
+import it.uniroma3.diadia.ios.IO;
 
 /**
  * Questa classe modella un comando.
@@ -25,10 +25,10 @@ public interface Comando {
      * Imposta il parametro del comando
      */
     public void setParametro(String parametro);
-    
+
     public String getParametro();
-    
+
     public void setIo(IO io);
-    
-//    public String getNome();
+
+    // public String getNome();
 }

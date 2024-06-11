@@ -21,6 +21,7 @@ public class ComandoPrendiTest {
 		monolocale = Labirinto.newBuilder().addStanzaIniziale("Corrente").getLabirinto();
 		martedi = new Partita(monolocale);
 		martedi.getLabirinto().getStanzaCorrente().addAttrezzo(chiavi);
+		martedi.getGiocatore().getBorsa().setPesoMax(10);
 		primo = new ComandoPrendi();
 	}
 

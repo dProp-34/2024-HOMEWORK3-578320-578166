@@ -1,4 +1,4 @@
-package it.uniroma3.diadia.ambienti;
+package it.uniroma3.diadia.ios;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -9,8 +9,10 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 
+import it.uniroma3.diadia.Direzione;
+import it.uniroma3.diadia.ambienti.Labirinto;
+import it.uniroma3.diadia.ambienti.Stanza;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
-import it.uniroma3.diadia.comandi.Direzione;
 import it.uniroma3.diadia.personaggi.Cane;
 import it.uniroma3.diadia.personaggi.Mago;
 import it.uniroma3.diadia.personaggi.Strega;

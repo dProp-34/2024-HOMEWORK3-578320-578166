@@ -14,8 +14,8 @@ import java.util.Map;
 import org.junit.Before;
 import org.junit.Test;
 
+import it.uniroma3.diadia.Direzione;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
-import it.uniroma3.diadia.comandi.Direzione;
 
 public class LabirintoBuilderTest {
 	private Labirinto.LabirintoBuilder labirintoBuilder;

@@ -1,4 +1,4 @@
-package it.uniroma3.diadia;
+package it.uniroma3.diadia.ios;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -6,8 +6,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.LineNumberReader;
 import java.io.StringReader;
-
-import it.uniroma3.diadia.ambienti.FormatoFileNonValidoException;
 
 public class CaricatoreProprieta {
 	private static final String LABIRINTO_MARKER = "Labirinto in uso:";
@@ -54,7 +52,7 @@ public class CaricatoreProprieta {
 
 	public int caricaPesoMax() throws FormatoFileNonValidoException {
 		try {
-			reader.mark(1000000); // Impone un limite ai file Properties da caricare di ~1MB
+			reader.mark(1000000); // Impone un limite ai file Proprieta da caricare di ~1MB
 			return this.leggiPesoMax();
 		} catch (IOException e) {
 			e.printStackTrace();

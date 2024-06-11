@@ -14,21 +14,20 @@ public class ComandoPosa extends AbstractComando {
 	@Override
 	public String esegui(Partita partita) {
 		if (nomeAttrezzo == null)
-			return("Cosa vuoi posare?\n");
+			return ("Cosa vuoi posare?\n");
 		else {
 			Attrezzo daPosare = partita.getGiocatore().getBorsa().removeAttrezzo(nomeAttrezzo);
 			if (daPosare == null)
-				return("Non possiedi quell'attrezzo.\n");
+				return ("Non possiedi quell'attrezzo.\n");
 			else if (!partita.getLabirinto().getStanzaCorrente().addAttrezzo(daPosare))
-				return("Non puoi posare quell'attrezzo.\n");
-			else 
-				return("Hai posato " + nomeAttrezzo);
+				return ("Non puoi posare quell'attrezzo.\n");
+			else
+				return ("Hai posato " + nomeAttrezzo);
 		}
 	}
-	
+
 	@Override
 	public String getNome() {
 		return this.NOME;
 	}
-	
 }
