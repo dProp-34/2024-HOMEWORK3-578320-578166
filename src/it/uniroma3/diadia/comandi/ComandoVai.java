@@ -48,8 +48,4 @@ public class ComandoVai extends AbstractComando {
 	public String getNome() {
 		return this.NOME;
 	}
-	
-	public Direzione controllaSeEsiste(Direzione parametro) {
-		return parametro;
-	}
 }
