@@ -24,7 +24,7 @@ import it.uniroma3.diadia.ios.IOConsole;
  * @version base
  */
 public class DiaDia {
-	static final private String MESSAGGIO_BENVENUTO = "Ti trovi nell'Universita', ma oggi e' diversa dal solito...\n" +
+	static final private String MESSAGGIO_BENVENUTO = "\nTi trovi nell'Universita', ma oggi e' diversa dal solito...\n" +
 			"Meglio andare al piu' presto in biblioteca a studiare. Ma dov'e'?\n" +
 			"I locali sono popolati da strani personaggi, " +
 			"alcuni amici, altri... chissa!\n" +
@@ -36,7 +36,7 @@ public class DiaDia {
 			"Inizio: N10\n" +
 			"Vincente: N11\n" +
 			"Attrezzi: martello 10 biblioteca, pinza 2 N10\n" +
-			"Uscite: biblioteca nord N10, biblioteca sud N11";
+			"Uscite: biblioteca nord N10, N10 sud biblioteca\n";
 
 	private Partita partita;
 	private IO io;
@@ -86,9 +86,9 @@ public class DiaDia {
 		Comando comandoDaEseguire;
 		FabbricaDiComandiFisarmonica factory = new FabbricaDiComandiFisarmonica(this.io);
 		comandoDaEseguire = factory.costruisciComando(istruzione);
-		String m = comandoDaEseguire.esegui(this.partita);
-		if (m != null)
-			io.mostraMessaggio(m);
+		String mess = comandoDaEseguire.esegui(this.partita);
+		if (mess != null)
+			io.mostraMessaggio(mess);
 		if (this.partita.isVinta())
 			io.mostraMessaggio("Hai raggiunto " +
 					this.partita.getLabirinto().getStanzaCorrente().getNome() + ". Hai vinto!\n");

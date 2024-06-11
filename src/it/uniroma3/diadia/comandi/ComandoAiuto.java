@@ -13,6 +13,7 @@ public class ComandoAiuto extends AbstractComando {
 	@Override
 	public String esegui(Partita partita) {
 		StringBuilder out = new StringBuilder();
+		out.append("\nComandi: ");
 		for (String s : ComandoAiuto.ELENCO_COMANDI)
 			out.append(s + " ");
 		out.append("\n" + partita.getGiocatore().getBorsa().toString() +

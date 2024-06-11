@@ -191,14 +191,13 @@ public class Labirinto {
 			return this;
 		}
 
-		public LabirintoBuilder addAdiacenza(String nomeFrom, String nomeTo, Direzione direzione) {
-			if (direzione == null)
-				return null;
+		public LabirintoBuilder addAdiacenza(String nomeFrom, String nomeTo, Direzione dir) {
 			Stanza from = this.get(nomeFrom);
 			Stanza to = this.get(nomeTo);
-			if (from != null && to != null)
-				from.setStanzaAdiacente(direzione, to);
-			// tiene traccia
+			if (from != null && to != null && dir != null) {
+				from.setStanzaAdiacente(dir, to);
+				to.setStanzaAdiacente(Direzione.opposta(dir), from);
+			}
 			return this;
 		}
 

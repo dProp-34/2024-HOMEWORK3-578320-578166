@@ -20,7 +20,7 @@ public enum Direzione {
 		return this.gradi;
 	}
 
-	public Direzione opposta(Direzione direzione) {
+	public static Direzione opposta(Direzione direzione) {
 		switch (direzione) {
 			case nord:
 				return sud;
