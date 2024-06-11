@@ -24,7 +24,7 @@ public class ComandoPrendi extends AbstractComando {
 				if (!successo)
 					return ("Non puoi prendere quell'attrezzo.\n");
 				else
-					return ("Hai preso " + this.getParametro() + ".\n");
+					return ("Hai preso " + this.getParametro());
 			}
 		}
 	}
