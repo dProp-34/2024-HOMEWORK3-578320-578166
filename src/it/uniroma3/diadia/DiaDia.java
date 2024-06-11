@@ -28,7 +28,7 @@ public class DiaDia {
 			"puoi raccoglierli, usarli, posarli quando ti sembrano inutili\n" +
 			"o regalarli se pensi che possano ingraziarti qualcuno.\n\n" +
 			"Per conoscere le istruzioni usa il comando 'aiuto'.";
-	private static final String LABIRINTO_DEFAULT = "labirinto_default.txt";
+	private static final String LABIRINTO_DEFAULT = "resources/labirinto_default.txt";
 
 	private Partita partita;
 	private IO io;
@@ -36,6 +36,7 @@ public class DiaDia {
 	public DiaDia(IO io) {
 		this.io = io;
 		try {
+			io.mostraMessaggio(System.getProperty("java.class.path")); // TODO da togliere
 			CaricatoreProprieta caricatore = new CaricatoreProprieta();
 			String labirintoInUso = caricatore.caricaLabirinto();
 			this.partita = new Partita(Labirinto.newBuilder(labirintoInUso).getLabirinto());
@@ -56,20 +57,6 @@ public class DiaDia {
 		this.io = io;
 	}
 
-	/*
-	 * @SuppressWarnings("resource")
-	 * public void gioca() {
-	 * String istruzione;
-	 * Scanner scannerDiLinee;
-	 * io.mostraMessaggio(DiaDia.MESSAGGIO_BENVENUTO);
-	 * scannerDiLinee = new Scanner(System.in);
-	 * FabbricaDiComandi factory = new FabbricaDiComandiFisarmonica();
-	 * do {
-	 * istruzione = scannerDiLinee.nextLine();
-	 * } while (!processaIstruzione(istruzione, factory));
-	 * }
-	 */
-
 	public void gioca(Scanner scannerDiLinee) {
 		String istruzione;
 		io.mostraMessaggio(MESSAGGIO_BENVENUTO);
@@ -84,30 +71,6 @@ public class DiaDia {
 	 * @return true se la partita e' finita al
 	 *         termine dell'istruzione, false altrimenti.
 	 */
-
-	/*
-	 * private boolean processaIstruzione(String istruzione, FabbricaDiComandi
-	 * factory) {
-	 * if (istruzione.isEmpty())
-	 * return false;
-	 * else {
-	 * Comando comandoDaEseguire = factory.costruisciComando(istruzione);
-	 * String daMostrare = comandoDaEseguire.esegui(this.partita);
-	 * if (daMostrare != null)
-	 * io.mostraMessaggioNoLn(daMostrare);
-	 * if (this.partita.isVinta()) {
-	 * io.mostraMessaggio("Hai raggiunto la " +
-	 * this.partita.getLabirinto().getStanzaCorrente().getNome() + ". Hai vinto!");
-	 * return true;
-	 * } else if (!this.partita.getGiocatore().isVivo()) {
-	 * io.mostraMessaggio("Hai esaurito i CFU. Hai perso...");
-	 * return true;
-	 * } else
-	 * return this.partita.isFinita();
-	 * }
-	 * }
-	 */
-
 	private boolean processaIstruzione(String istruzione) {
 		Comando comandoDaEseguire;
 		FabbricaDiComandiFisarmonica factory = new FabbricaDiComandiFisarmonica(this.io);
@@ -125,12 +88,10 @@ public class DiaDia {
 
 	public static void main(String[] argc) {
 		/*
-		 * N.B. unica istanza di IOConsole
+		 * NB. l'unica istanza di IOConsole
 		 * di cui sia ammessa la creazione
-		 */
-		IO io = new IOConsole();
-		Scanner scannerDiLinee = new Scanner(System.in);
-		/*
+		 * si trova qui
+		 * 
 		 * Labirinto labirinto = new LabirintoBuilder()
 		 * .addStanzaIniziale("LabCampusOne")
 		 * .addAttrezzo("osso", 1)
@@ -143,6 +104,8 @@ public class DiaDia {
 		 * .getLabirinto();
 		 * DiaDia gioco = new DiaDia(labirinto, io);
 		 */
+		IO io = new IOConsole();
+		Scanner scannerDiLinee = new Scanner(System.in);
 		DiaDia gioco = new DiaDia(io);
 		if (gioco.partita.isFinita())
 			scannerDiLinee.close();

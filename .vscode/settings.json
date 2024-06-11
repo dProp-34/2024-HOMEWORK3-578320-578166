@@ -1,0 +1,7 @@
+{
+	"java.debug.settings.onBuildFailureProceed": true,
+	"editor.smartSelect.selectSubwords": false,
+	"java.project.sourcePaths": [
+		"src/it/uniroma3/diadia"
+	]
+}

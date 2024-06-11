@@ -27,7 +27,6 @@ public class Stanza {
 	private Map<Direzione, Stanza> stanzeAdiacenti;
 	private AbstractPersonaggio personaggio;
 
-	
 	/**
 	 * Crea una stanza, senza attrezzi ne' stanze adiacenti.
 	 *
@@ -195,11 +194,11 @@ public class Stanza {
 	public void setPersonaggio(AbstractPersonaggio personaggio) {
 		this.personaggio = personaggio;
 	}
-	
+
 	public AbstractPersonaggio getPersonaggio() {
 		return this.personaggio;
 	}
-	
+
 	/**
 	 * Restituisce una rappresentazione stringa di questa stanza,
 	 * stampadone la descrizione, le uscite e gli eventuali attrezzi contenuti.

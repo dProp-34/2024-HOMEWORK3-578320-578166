@@ -13,12 +13,11 @@ public class CaricatoreProprieta {
 	private static final String LABIRINTO_MARKER = "Labirinto in uso:";
 	private static final String CFU_MARKER = "CFU Iniziali:";
 	private static final String PESO_MAX_MARKER = "Peso Max Borsa:";
-	public static final String FILE_PROPERTIES = "diadia.properties";
+	public static final String FILE_PROPERTIES = "resources/diadia.properties.txt";
 	private LineNumberReader reader;
 
 	public CaricatoreProprieta() throws FileNotFoundException {
-		InputStream stream;
-		stream = getClass().getClassLoader().getResourceAsStream(FILE_PROPERTIES);
+		InputStream stream = getClass().getClassLoader().getResourceAsStream(FILE_PROPERTIES);
 		if (stream == null)
 			throw new FileNotFoundException();
 		else
@@ -28,24 +27,6 @@ public class CaricatoreProprieta {
 	public CaricatoreProprieta(StringReader fixtureFile) throws FileNotFoundException, FormatoFileNonValidoException {
 		this.reader = new LineNumberReader(fixtureFile);
 	}
-
-	/*
-	 * private Properties caricaProperties() {
-	 * Properties props = new Properties();
-	 * try (InputStream input =
-	 * getClass().getClassLoader().getResourceAsStream(FILE_PROPERTIES)) {
-	 * if (input != null) {
-	 * props.load(input);
-	 * } else {
-	 * throw new FileNotFoundException("File '" + FILE_PROPERTIES +
-	 * "' non trovato nel classpath");
-	 * }
-	 * } catch (IOException e) {
-	 * throw new RuntimeException(e.getMessage());
-	 * }
-	 * return props;
-	 * }
-	 */
 
 	private String leggiRigaCheCominciaPer(String marker) throws FormatoFileNonValidoException {
 		try {
@@ -73,7 +54,7 @@ public class CaricatoreProprieta {
 
 	public int caricaPesoMax() throws FormatoFileNonValidoException {
 		try {
-			reader.mark(10 ^ 6); // Impone un limite ai file Proprieta da caricare di ~1MB
+			reader.mark(1000000); // Impone un limite ai file Properties da caricare di ~1MB
 			return this.leggiPesoMax();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -98,7 +79,7 @@ public class CaricatoreProprieta {
 
 	public int caricaCFU() throws FormatoFileNonValidoException {
 		try {
-			reader.mark(10 ^ 6); // Impone un limite ai file Proprieta da caricare di ~1MB
+			reader.mark(1000000); // Impone un limite ai file Proprieta da caricare di ~1MB
 			return this.leggiCFU();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -114,16 +95,12 @@ public class CaricatoreProprieta {
 	}
 
 	private String leggiLabirinto() throws FormatoFileNonValidoException {
-		try {
-			return (this.leggiRigaCheCominciaPer(LABIRINTO_MARKER));
-		} catch (NumberFormatException e) {
-			throw new RuntimeException(e.getMessage());
-		}
+		return (this.leggiRigaCheCominciaPer(LABIRINTO_MARKER));
 	}
 
 	public String caricaLabirinto() throws FormatoFileNonValidoException {
 		try {
-			reader.mark(10 ^ 6); // Impone un limite ai file Proprieta da caricare di ~1MB
+			reader.mark(1000000); // Impone un limite ai file Proprieta da caricare di ~1MB
 			return this.leggiLabirinto();
 		} catch (IOException e) {
 			e.printStackTrace();
