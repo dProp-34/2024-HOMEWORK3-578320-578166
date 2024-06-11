@@ -20,18 +20,29 @@ public enum Direzione {
 		return this.gradi;
 	}
 
+	public static Direzione controllaSeEsiste(String s) {
+		Direzione out = null;
+		for (Direzione d : values()) {
+			if (d.name().equals(s)) {
+				out = d;
+				break;
+			}
+		}
+		return out;
+	}
+
 	public static Direzione opposta(Direzione direzione) {
 		switch (direzione) {
-			case nord:
-				return sud;
-			case est:
-				return ovest;
-			case sud:
-				return nord;
-			case ovest:
-				return est;
-			default:
-				return null;
+		case nord:
+			return sud;
+		case est:
+			return ovest;
+		case sud:
+			return nord;
+		case ovest:
+			return est;
+		default:
+			return null;
 		}
 	}
 }
