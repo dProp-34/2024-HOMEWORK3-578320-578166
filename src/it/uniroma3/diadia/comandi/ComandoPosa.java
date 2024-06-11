@@ -22,7 +22,7 @@ public class ComandoPosa extends AbstractComando {
 			else if (!partita.getLabirinto().getStanzaCorrente().addAttrezzo(daPosare))
 				return ("Non puoi posare quell'attrezzo.\n");
 			else
-				return ("Hai posato " + this.getParametro() + ".\n");
+				return ("Hai posato " + this.getParametro());
 		}
 	}
 

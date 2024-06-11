@@ -20,7 +20,7 @@ public class ComandoVai extends AbstractComando {
 			return ("Dove vuoi andare?\n");
 		else {
 			Stanza stanzaCorrente = partita.getLabirinto().getStanzaCorrente();
-			Stanza prossimaStanza = stanzaCorrente.getStanzaAdiacente(direzione);
+			Stanza prossimaStanza = stanzaCorrente.getStanzaAdiacente(this.direzione);
 			if (prossimaStanza == null)
 				// return ("Non puoi andare li'.\n");
 				return ("*Bonk*\n");

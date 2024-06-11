@@ -36,7 +36,7 @@ public class DiaDia {
 			"Inizio: N10\n" +
 			"Vincente: N11\n" +
 			"Attrezzi: martello 10 biblioteca, pinza 2 N10\n" +
-			"Uscite: biblioteca nord N10, N10 sud biblioteca\n";
+			"Uscite: biblioteca nord N10, biblioteca sud N11\n";
 
 	private Partita partita;
 	private IO io;

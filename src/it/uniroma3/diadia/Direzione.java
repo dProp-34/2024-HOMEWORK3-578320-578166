@@ -33,16 +33,16 @@ public enum Direzione {
 
 	public static Direzione opposta(Direzione direzione) {
 		switch (direzione) {
-		case nord:
-			return sud;
-		case est:
-			return ovest;
-		case sud:
-			return nord;
-		case ovest:
-			return est;
-		default:
-			return null;
+			case nord:
+				return sud;
+			case est:
+				return ovest;
+			case sud:
+				return nord;
+			case ovest:
+				return est;
+			default:
+				return null;
 		}
 	}
 }
