@@ -16,17 +16,18 @@ public class CaricatoreProprieta {
 	private LineNumberReader reader;
 
 	public CaricatoreProprieta() throws IOException {
-		ClassLoader loader = this.getClass().getClassLoader();
-		URL resource = loader.getResource(FILE_PROPERTIES);
-		if (resource == null)
-			throw new FileNotFoundException("Resource not found: " + FILE_PROPERTIES);
-		else {
-			try {
-				this.reader = new LineNumberReader(new InputStreamReader(resource.openStream()));
-			} catch (IOException e) {
-				e.printStackTrace(); // Print the stack trace for debugging
-				throw new IOException("Failed to open stream for resource: " + FILE_PROPERTIES);
-			}
+		try {
+			ClassLoader loader = this.getClass().getClassLoader();
+			URL resource = loader.getResource(FILE_PROPERTIES);
+			this.reader = new LineNumberReader(new InputStreamReader(resource.openStream()));
+			/*
+			 * if (resource == null)
+			 * throw new FileNotFoundException("Resource not found: " + FILE_PROPERTIES);
+			 * else {
+			 */
+		} catch (IOException e) {
+			e.printStackTrace(); // Print the stack trace for debugging
+			throw new RuntimeException("Failed to open stream for resource: " + FILE_PROPERTIES);
 		}
 	}
 
@@ -125,5 +126,4 @@ public class CaricatoreProprieta {
 			}
 		}
 	}
-
 }

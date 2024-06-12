@@ -64,7 +64,7 @@ public class DiaDia {
 		}
 	}
 
-	public DiaDia(Labirinto labirinto, IO io) throws IOException {
+	public DiaDia(Labirinto labirinto, IO io) {
 		this.partita = new Partita(labirinto);
 		this.io = io;
 	}

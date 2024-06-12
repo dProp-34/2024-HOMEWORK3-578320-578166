@@ -1,6 +1,5 @@
 package it.uniroma3.diadia.giocatore;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -24,12 +23,12 @@ public class Borsa {
 	private List<Attrezzo> attrezzi;
 	private int pesoMax;
 
-	public Borsa() throws IOException {
+	public Borsa() {
 		this.attrezzi = new ArrayList<Attrezzo>();
 		try {
 			CaricatoreProprieta caricatore = new CaricatoreProprieta();
 			this.pesoMax = caricatore.caricaPesoMax();
-		} catch (FileNotFoundException e) {
+		} catch (IOException e) {
 			this.pesoMax = PESO_MAX_DEFAULT;
 		} catch (FormatoFileNonValidoException e) {
 			throw new RuntimeException("Formato Proprieta non valido!");

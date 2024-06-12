@@ -1,6 +1,5 @@
 package it.uniroma3.diadia.giocatore;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import it.uniroma3.diadia.ios.CaricatoreProprieta;
@@ -12,19 +11,21 @@ public class Giocatore {
 	private Borsa borsa;
 	private int cfu;
 
-	public Giocatore() throws IOException {
+	public Giocatore() {
 		this.borsa = new Borsa();
 		try {
 			CaricatoreProprieta caricatore = new CaricatoreProprieta();
-			// String labirintoInUso = caricatore.caricaLabirinto();
 			this.cfu = caricatore.caricaCFU();
-		} catch (FileNotFoundException e) {
-			// try {
-			// io.mostraMessaggio("Labirinto non trovato, carico " + LABIRINTO_DEFAULT); //
+		} catch (IOException e) {
 			this.cfu = CFU_DEFAULT;
-			// } catch (FileNotFoundException | FormatoFileNonValidoException e1) {
-			// throw new RuntimeException(LABIRINTO_DEFAULT + "non trovato!");
-			// }
+			/*
+			 * String labirintoInUso = caricatore.caricaLabirinto();
+			 * try {
+			 * io.mostraMessaggio("Labirinto non trovato, carico " + LABIRINTO_DEFAULT); //
+			 * } catch (FileNotFoundException | FormatoFileNonValidoException e1) {
+			 * throw new RuntimeException(LABIRINTO_DEFAULT + "non trovato!");
+			 * }
+			 */
 		} catch (FormatoFileNonValidoException e) {
 			throw new RuntimeException("Formato Proprieta non valido!");
 		}
