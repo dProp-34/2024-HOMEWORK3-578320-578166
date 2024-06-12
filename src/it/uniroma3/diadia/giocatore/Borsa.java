@@ -1,6 +1,7 @@
 package it.uniroma3.diadia.giocatore;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -23,7 +24,7 @@ public class Borsa {
 	private List<Attrezzo> attrezzi;
 	private int pesoMax;
 
-	public Borsa() {
+	public Borsa() throws IOException {
 		this.attrezzi = new ArrayList<Attrezzo>();
 		try {
 			CaricatoreProprieta caricatore = new CaricatoreProprieta();

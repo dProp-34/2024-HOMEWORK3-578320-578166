@@ -1,10 +1,11 @@
 package it.uniroma3.diadia.ios;
 
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.LineNumberReader;
 import java.io.StringReader;
+import java.net.URL;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
@@ -42,12 +43,24 @@ public class CaricatoreLabirinto {
 	private static final String ATTREZZI_MARKER = "Attrezzi:";
 	private static final String USCITE_MARKER = "Uscite:";
 
-	private LineNumberReader reader;
 	private Labirinto.LabirintoBuilder builder;
+	private LineNumberReader reader;
 
-	public CaricatoreLabirinto(String nomeFile) throws FileNotFoundException, FormatoFileNonValidoException {
+	public CaricatoreLabirinto(String nomeFile) throws IOException, FormatoFileNonValidoException {
 		this.builder = Labirinto.newBuilder();
-		this.reader = new LineNumberReader(new FileReader(nomeFile));
+		// this.reader = new LineNumberReader(new FileReader(nomeFile));
+		ClassLoader loader = this.getClass().getClassLoader();
+		URL resource = loader.getResource(nomeFile);
+		if (resource == null)
+			throw new FileNotFoundException("Resource not found: " + nomeFile);
+		else {
+			try {
+				this.reader = new LineNumberReader(new InputStreamReader(resource.openStream()));
+			} catch (IOException e) {
+				e.printStackTrace(); // Print the stack trace for debugging
+				throw new IOException("Failed to open stream for resource: " + nomeFile);
+			}
+		}
 	}
 
 	public CaricatoreLabirinto(StringReader fixtureFile) throws FileNotFoundException, FormatoFileNonValidoException {

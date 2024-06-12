@@ -2,24 +2,32 @@ package it.uniroma3.diadia.ios;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.LineNumberReader;
 import java.io.StringReader;
+import java.net.URL;
 
 public class CaricatoreProprieta {
 	private static final String LABIRINTO_MARKER = "Labirinto in uso:";
 	private static final String CFU_MARKER = "CFU Iniziali:";
 	private static final String PESO_MAX_MARKER = "Peso Max Borsa:";
-	public static final String FILE_PROPERTIES = "resources/diadia.properties.txt";
+	public static final String FILE_PROPERTIES = "diadia.properties.txt";
+
 	private LineNumberReader reader;
 
-	public CaricatoreProprieta() throws FileNotFoundException {
-		InputStream stream = getClass().getClassLoader().getResourceAsStream(FILE_PROPERTIES);
-		if (stream == null)
-			throw new FileNotFoundException();
-		else
-			this.reader = new LineNumberReader(new InputStreamReader(stream));
+	public CaricatoreProprieta() throws IOException {
+		ClassLoader loader = this.getClass().getClassLoader();
+		URL resource = loader.getResource(FILE_PROPERTIES);
+		if (resource == null)
+			throw new FileNotFoundException("Resource not found: " + FILE_PROPERTIES);
+		else {
+			try {
+				this.reader = new LineNumberReader(new InputStreamReader(resource.openStream()));
+			} catch (IOException e) {
+				e.printStackTrace(); // Print the stack trace for debugging
+				throw new IOException("Failed to open stream for resource: " + FILE_PROPERTIES);
+			}
+		}
 	}
 
 	public CaricatoreProprieta(StringReader fixtureFile) throws FileNotFoundException, FormatoFileNonValidoException {
@@ -99,7 +107,12 @@ public class CaricatoreProprieta {
 	public String caricaLabirinto() throws FormatoFileNonValidoException {
 		try {
 			reader.mark(1000000); // Impone un limite ai file Proprieta da caricare di ~1MB
-			return this.leggiLabirinto();
+			String labirintoFile = this.leggiLabirinto();
+			System.out.println("Labirinto file to load: " + labirintoFile); // Debug statement
+			if (labirintoFile == null || labirintoFile.isEmpty()) {
+				throw new FormatoFileNonValidoException("Labirinto file name is missing or empty in properties file");
+			}
+			return labirintoFile;
 		} catch (IOException e) {
 			e.printStackTrace();
 			throw new RuntimeException(e);
@@ -112,4 +125,5 @@ public class CaricatoreProprieta {
 			}
 		}
 	}
+
 }

@@ -17,19 +17,19 @@ public class ComandoVai extends AbstractComando {
 	@Override
 	public String esegui(Partita partita) {
 		if (this.direzione == null)
-			return ("Dove vuoi andare?\n");
+			return ("\nDove vuoi andare?");
 		else {
 			Stanza stanzaCorrente = partita.getLabirinto().getStanzaCorrente();
 			Stanza prossimaStanza = stanzaCorrente.getStanzaAdiacente(this.direzione);
 			if (prossimaStanza == null)
 				// return ("Non puoi andare li'.\n");
-				return ("*Bonk*\n");
+				return ("\n*Bonk*");
 			else {
 				partita.getLabirinto().setStanzaCorrente(prossimaStanza);
 				partita.getGiocatore().decrementaCfu();
+				return ("\n" + partita.getLabirinto().getStanzaCorrente().toString());
 			}
 		}
-		return null;
 	}
 
 	@Override

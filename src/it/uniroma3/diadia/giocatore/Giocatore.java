@@ -1,6 +1,7 @@
 package it.uniroma3.diadia.giocatore;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import it.uniroma3.diadia.ios.CaricatoreProprieta;
 import it.uniroma3.diadia.ios.FormatoFileNonValidoException;
@@ -11,7 +12,7 @@ public class Giocatore {
 	private Borsa borsa;
 	private int cfu;
 
-	public Giocatore() {
+	public Giocatore() throws IOException {
 		this.borsa = new Borsa();
 		try {
 			CaricatoreProprieta caricatore = new CaricatoreProprieta();

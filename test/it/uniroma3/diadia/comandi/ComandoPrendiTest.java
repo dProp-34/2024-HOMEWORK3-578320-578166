@@ -21,7 +21,6 @@ public class ComandoPrendiTest {
 		monolocale = Labirinto.newBuilder().addStanzaIniziale("Corrente").getLabirinto();
 		martedi = new Partita(monolocale);
 		martedi.getLabirinto().getStanzaCorrente().addAttrezzo(chiavi);
-		martedi.getGiocatore().getBorsa().setPesoMax(10);
 		primo = new ComandoPrendi();
 	}
 
@@ -47,6 +46,8 @@ public class ComandoPrendiTest {
 
 	@Test
 	public void testNonPuoiPrendereQuellAttrezzo() {
+		assertEquals(20, martedi.getGiocatore().getBorsa().getPesoMax());
+		martedi.getGiocatore().getBorsa().setPesoMax(10);
 		Attrezzo uno = new Attrezzo("Uno", 1);
 		for (int i = 0; i < 15; i++)
 			martedi.getGiocatore().getBorsa().addAttrezzo(uno);

@@ -4,7 +4,7 @@ import it.uniroma3.diadia.Partita;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 
 public class ComandoRegala extends AbstractComando {
-	
+
 	@Override
 	public String esegui(Partita partita) {
 		if (this.getParametro() == null)
@@ -18,11 +18,11 @@ public class ComandoRegala extends AbstractComando {
 			partita.getLabirinto().getStanzaCorrente().addAttrezzo(attrezzo);
 			return "(Sei da solo nella stanza. Hai lasciato l'oggetto cadere per terra)";
 		}
-		
+
 		partita.getGiocatore().getBorsa().removeAttrezzo(this.getParametro());
 		return partita.getLabirinto().getStanzaCorrente().getPersonaggio().riceviRegalo(attrezzo, partita);
 	}
-	
+
 	@Override
 	public String getNome() {
 		return null;

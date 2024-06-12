@@ -1,6 +1,6 @@
 package it.uniroma3.diadia;
 
-import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.StringReader;
 import java.util.Scanner;
 
@@ -32,11 +32,10 @@ public class DiaDia {
 			"puoi raccoglierli, usarli, posarli quando ti sembrano inutili\n" +
 			"o regalarli se pensi che possano ingraziarti qualcuno.\n\n" +
 			"Per conoscere le istruzioni usa il comando 'aiuto'.";
-	static final private String LABIRINTO_DEFAULT = "Stanze: biblioteca, N10, N11\n" +
+	static final private String LABIRINTO_DEFAULT = "Stanze: N10, N11\n" +
 			"Inizio: N10\n" +
 			"Vincente: N11\n" +
-			"Attrezzi: martello 10 biblioteca, pinza 2 N10\n" +
-			"Uscite: biblioteca nord N10, biblioteca sud N11\n";
+			"Uscite: N10 nord N11\n";
 
 	private Partita partita;
 	private IO io;
@@ -44,26 +43,28 @@ public class DiaDia {
 	public DiaDia(IO io) {
 		this.io = io;
 		try {
-			io.mostraMessaggio(System.getProperty("java.class.path")); // TODO da togliere
 			CaricatoreProprieta caricatore = new CaricatoreProprieta();
 			String labirintoInUso = caricatore.caricaLabirinto();
-			this.partita = new Partita(Labirinto.newBuilder(labirintoInUso).getLabirinto());
-		} catch (FileNotFoundException e) {
+			Labirinto labirinto = Labirinto.newBuilder(labirintoInUso).getLabirinto();
+			this.partita = new Partita(labirinto);
+		} catch (IOException e) {
+			io.mostraMessaggio("Labirinto non trovato, carico il labirinto di default...");
 			try {
-				io.mostraMessaggio("Labirinto non trovato, carico il labirinto di default"); // TODO da togliere
 				CaricatoreLabirinto caricatore = new CaricatoreLabirinto(new StringReader(LABIRINTO_DEFAULT));
 				caricatore.carica();
 				Labirinto labirinto = caricatore.getBuilder().getLabirinto();
 				this.partita = new Partita(labirinto);
-			} catch (FileNotFoundException | FormatoFileNonValidoException e1) {
-				throw new RuntimeException(LABIRINTO_DEFAULT + " non trovato!");
+			} catch (IOException | FormatoFileNonValidoException e1) {
+				e1.printStackTrace();
+				throw new RuntimeException("Labirinto di default non trovato!", e1);
 			}
 		} catch (FormatoFileNonValidoException e) {
-			throw new RuntimeException("Formato labirinto non valido!");
+			e.printStackTrace();
+			throw new RuntimeException("Formato labirinto non valido!", e);
 		}
 	}
 
-	public DiaDia(Labirinto labirinto, IO io) {
+	public DiaDia(Labirinto labirinto, IO io) throws IOException {
 		this.partita = new Partita(labirinto);
 		this.io = io;
 	}

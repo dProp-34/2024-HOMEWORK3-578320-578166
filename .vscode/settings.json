@@ -1,7 +1,12 @@
 {
-	"java.debug.settings.onBuildFailureProceed": true,
-	"editor.smartSelect.selectSubwords": false,
+	"editor.formatOnSave": true,
 	"java.project.sourcePaths": [
-		"src/it/uniroma3/diadia"
-	]
+		"2024-HOMEWORK3-578320-578166\\src",
+		"2024-HOMEWORK3-578320-578166\\test",
+		"2024-HOMEWORK3-578320-578166\\resources"
+	],
+	"java.project.referencedLibraries": [
+		"c:\\Users\\dprop\\diadia\\lib\\junit-platform-console-standalone-1.11.0-M2.jar"
+	],
+	"java.dependency.packagePresentation": "hierarchical"
 }

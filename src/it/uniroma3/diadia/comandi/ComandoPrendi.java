@@ -13,18 +13,18 @@ public class ComandoPrendi extends AbstractComando {
 	@Override
 	public String esegui(Partita partita) {
 		if (this.getParametro() == null)
-			return ("Cosa vuoi prendere?\n");
+			return ("\nCosa vuoi prendere?");
 		else {
 			Attrezzo daPrendere = partita.getLabirinto().getStanzaCorrente().getAttrezzo(this.getParametro());
 			if (daPrendere == null)
-				return ("Quell'attrezzo non e' presente nella stanza.\n");
+				return ("\nQuell'attrezzo non e' presente nella stanza.");
 			else {
 				boolean successo = partita.getGiocatore().getBorsa().addAttrezzo(daPrendere);
 				successo |= partita.getLabirinto().getStanzaCorrente().removeAttrezzo(daPrendere);
 				if (!successo)
-					return ("Non puoi prendere quell'attrezzo.\n");
+					return ("\nNon puoi prendere quell'attrezzo.");
 				else
-					return ("Hai preso " + this.getParametro());
+					return ("\nHai preso " + this.getParametro() + ".");
 			}
 		}
 	}

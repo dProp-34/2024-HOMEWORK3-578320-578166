@@ -1,6 +1,6 @@
 package it.uniroma3.diadia.ambienti;
 
-import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Iterator;
 import java.util.LinkedList;
 
@@ -16,7 +16,7 @@ public class Labirinto {
 	private Stanza stanzaCorrente;
 	private Stanza stanzaVincente;
 
-	private Labirinto(String nomeFile) throws FileNotFoundException, FormatoFileNonValidoException {
+	private Labirinto(String nomeFile) throws IOException, FormatoFileNonValidoException {
 		CaricatoreLabirinto c = new CaricatoreLabirinto(nomeFile);
 		c.carica();
 		this.stanzaCorrente = c.getStanzaIniziale();
@@ -49,7 +49,7 @@ public class Labirinto {
 	}
 
 	public static LabirintoBuilder newBuilder(String nomeFile)
-			throws FileNotFoundException, FormatoFileNonValidoException {
+			throws IOException, FormatoFileNonValidoException {
 		return new LabirintoBuilder(nomeFile);
 	}
 
@@ -96,7 +96,7 @@ public class Labirinto {
 			this.labirinto = new Labirinto();
 		}
 
-		public LabirintoBuilder(String nomeFile) throws FileNotFoundException, FormatoFileNonValidoException {
+		public LabirintoBuilder(String nomeFile) throws IOException, FormatoFileNonValidoException {
 			this.listaStanze = new LinkedList<>();
 			this.labirinto = new Labirinto(nomeFile);
 		}
